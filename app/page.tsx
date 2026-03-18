@@ -5,8 +5,7 @@ import Link from "next/link";
 function FinTaraInlineWordmark() {
   return (
     <div className="brand-wordmark-inline" aria-label="FinTara logo">
-      <span>FIN</span>
-      <span>TARA</span>
+      <span>FINTARA</span>
     </div>
   );
 }
@@ -52,8 +51,8 @@ const featuredPosts = [
 ];
 
 const principles = [
-  "Data before opinion",
-  "Perspective with spine",
+  "Evidence and judgment in the same frame",
+  "Quantitative and qualitative insight together",
   "Tools with real-world trade-offs",
   "Clear no-financial-advice boundary",
 ];
@@ -66,8 +65,8 @@ const signalBlocks = [
   },
   {
     label: "Style",
-    value: "Evidence + conviction",
-    detail: "A visible argument, not content pretending to have none.",
+    value: "Evidence with a point of view",
+    detail: "Numbers, context, and qualitative judgment working together.",
   },
   {
     label: "Boundary",
@@ -122,12 +121,13 @@ export default function HomePage() {
                 <FinTaraWordmark />
               </div>
               <p className="mt-8 max-w-2xl text-xl font-medium leading-9 text-slate-200 md:text-2xl">
-                Data first. Perspective second. Both matter.
+                Data, perspective, and qualitative insight in the same analysis.
               </p>
               <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">
                 FinTara is where David Tarazona writes about investing, incentives,
-                financial power, and market structure. The point is not to sound neutral.
-                The point is to be rigorous, clear about the argument, and honest about uncertainty.
+                financial power, and market structure. The point is not to separate the math
+                from the judgment. The point is to combine evidence, interpretation, and clear
+                qualitative insight while staying honest about uncertainty.
               </p>
               <div className="mt-10 flex flex-col gap-4 sm:flex-row">
                 <a
@@ -163,10 +163,10 @@ export default function HomePage() {
                 <p className="text-xs font-bold uppercase tracking-[0.24em] text-slate-400">
                   Brand promise
                 </p>
-                <p className="mt-3 text-2xl font-semibold text-[#f3ead0]">Sharp opinion. Clear evidence.</p>
+                <p className="mt-3 text-2xl font-semibold text-[#f3ead0]">Evidence, interpretation, and spine.</p>
                 <p className="mt-3 text-sm leading-7 text-slate-300">
                   This is not financial advice. It is analysis with a point of view,
-                  backed by evidence and explicit trade-offs.
+                  backed by evidence, qualitative judgment, and explicit trade-offs.
                 </p>
               </div>
             </aside>
