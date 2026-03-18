@@ -2,6 +2,15 @@
 
 import Link from "next/link";
 
+function FinTaraInlineWordmark() {
+  return (
+    <div className="brand-wordmark-inline" aria-label="FinTara logo">
+      <span>FIN</span>
+      <span>TARA</span>
+    </div>
+  );
+}
+
 function FinTaraWordmark({ compact = false }: { compact?: boolean }) {
   const wrapperClass = compact
     ? "brand-wordmark scale-[0.72] origin-left"
@@ -49,15 +58,31 @@ const principles = [
   "Clear no-financial-advice boundary",
 ];
 
+const signalBlocks = [
+  {
+    label: "Angle",
+    value: "Markets + power",
+    detail: "Finance through incentives, systems, and structure.",
+  },
+  {
+    label: "Style",
+    value: "Evidence + conviction",
+    detail: "A visible argument, not content pretending to have none.",
+  },
+  {
+    label: "Boundary",
+    value: "Not financial advice",
+    detail: "Clear analysis, explicit uncertainty, no fake certainty.",
+  },
+];
+
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-[#f4efe6] text-slate-900">
-      <header className="sticky top-0 z-50 border-b border-[#d8cfbd]/80 bg-[#f4efe6]/90 backdrop-blur-md">
+    <div className="min-h-screen text-slate-900">
+      <header className="sticky top-0 z-50 border-b border-[#d8cfbd]/80 bg-[#f4efe6]/92 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-3">
-            <div className="hidden sm:block">
-              <FinTaraWordmark compact />
-            </div>
+            <div className="hidden sm:block"><FinTaraInlineWordmark /></div>
             <div className="sm:hidden flex h-9 w-9 items-center justify-center rounded-full bg-[#0f3b2f] text-xs font-bold text-[#e8d8a8]">
               FT
             </div>
@@ -78,7 +103,7 @@ export default function HomePage() {
               href="https://www.linkedin.com/newsletters/off-the-record-english-7439854561286262784/"
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full bg-[#10213f] px-4 py-2 text-sm font-semibold text-white hover:bg-[#0a1730]"
+              className="rounded-full bg-[#001f3f] px-4 py-2 text-sm font-semibold text-white hover:bg-[#001735]"
             >
               Off the Record
             </a>
@@ -87,7 +112,7 @@ export default function HomePage() {
       </header>
 
       <main>
-        <section className="border-b border-[#d8cfbd] bg-[radial-gradient(circle_at_top_left,_rgba(232,216,168,0.16),_transparent_28%),linear-gradient(180deg,_#0c1628_0%,_#13213c_100%)] text-white">
+        <section className="border-b border-[#d8cfbd] bg-[radial-gradient(circle_at_top_left,_rgba(212,175,55,0.16),_transparent_28%),linear-gradient(180deg,_#07162f_0%,_#001f3f_100%)] text-white">
           <div className="mx-auto grid max-w-6xl gap-16 px-6 py-20 md:grid-cols-[1.1fr_0.9fr] md:py-28">
             <div>
               <p className="mb-5 text-xs font-bold uppercase tracking-[0.24em] text-[#e8d8a8]">
@@ -96,7 +121,7 @@ export default function HomePage() {
               <div className="max-w-3xl">
                 <FinTaraWordmark />
               </div>
-              <p className="mt-8 max-w-2xl text-xl leading-9 text-slate-300 md:text-2xl">
+              <p className="mt-8 max-w-2xl text-xl font-medium leading-9 text-slate-200 md:text-2xl">
                 Data first. Perspective second. Both matter.
               </p>
               <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">
@@ -109,7 +134,7 @@ export default function HomePage() {
                   href="https://www.linkedin.com/newsletters/off-the-record-english-7439854561286262784/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center rounded-full bg-[#e8d8a8] px-6 py-3 text-sm font-semibold text-[#1a2438] hover:bg-[#f0e3bc]"
+                  className="inline-flex items-center justify-center rounded-full bg-[#d4af37] px-6 py-3 text-sm font-semibold text-[#0d1a31] hover:bg-[#e1c15f]"
                 >
                   Subscribe to the newsletter
                 </a>
@@ -148,7 +173,21 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-6xl px-6 py-20">
+        <section className="mx-auto max-w-6xl px-6 py-10 md:-mt-10 md:relative md:z-10">
+          <div className="grid gap-4 md:grid-cols-3">
+            {signalBlocks.map((block) => (
+              <div key={block.label} className="signal-card rounded-[1.35rem] p-6">
+                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#8a6d2f]">
+                  {block.label}
+                </p>
+                <p className="mt-3 text-2xl font-semibold text-[#001f3f]">{block.value}</p>
+                <p className="mt-3 text-sm leading-7 text-slate-600">{block.detail}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-6xl px-6 py-16">
           <div className="mb-10 flex items-end justify-between gap-6">
             <div>
               <p className="mb-3 text-xs font-bold uppercase tracking-[0.24em] text-[#8a6d2f]">
