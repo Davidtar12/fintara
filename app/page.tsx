@@ -62,16 +62,19 @@ const signalBlocks = [
     label: "Angle",
     value: "Markets + power",
     detail: "Finance through incentives, systems, and structure.",
+    tone: "gold",
   },
   {
     label: "Style",
     value: "Evidence with a point of view",
     detail: "Numbers, context, and qualitative judgment working together.",
+    tone: "green",
   },
   {
     label: "Boundary",
     value: "Not financial advice",
     detail: "Clear analysis, explicit uncertainty, no fake certainty.",
+    tone: "gold",
   },
 ];
 
@@ -111,10 +114,10 @@ export default function HomePage() {
       </header>
 
       <main>
-        <section className="border-b border-[#d8cfbd] bg-[radial-gradient(circle_at_top_left,_rgba(212,175,55,0.16),_transparent_28%),linear-gradient(180deg,_#07162f_0%,_#001f3f_100%)] text-white">
+        <section className="border-b border-[#d8cfbd] bg-[radial-gradient(circle_at_top_left,_rgba(46,139,87,0.14),_transparent_22%),radial-gradient(circle_at_top_center,_rgba(212,175,55,0.14),_transparent_30%),linear-gradient(180deg,_#07162f_0%,_#001f3f_100%)] text-white">
           <div className="mx-auto grid max-w-6xl gap-16 px-6 py-20 md:grid-cols-[1.1fr_0.9fr] md:py-28">
             <div>
-              <p className="mb-5 text-xs font-bold uppercase tracking-[0.24em] text-[#e8d8a8]">
+              <p className="mb-5 text-xs font-bold uppercase tracking-[0.24em] text-[#d7f3dd]">
                 Finance, power, and market judgment
               </p>
               <div className="max-w-3xl">
@@ -134,13 +137,13 @@ export default function HomePage() {
                   href="https://www.linkedin.com/newsletters/off-the-record-english-7439854561286262784/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center rounded-full bg-[#d4af37] px-6 py-3 text-sm font-semibold text-[#0d1a31] hover:bg-[#e1c15f]"
+                  className="inline-flex items-center justify-center rounded-full bg-[#2e8b57] px-6 py-3 text-sm font-semibold text-white hover:bg-[#256f46]"
                 >
                   Subscribe to the newsletter
                 </a>
                 <Link
                   href="/blog"
-                  className="inline-flex items-center justify-center rounded-full border border-[#b7a880]/60 px-6 py-3 text-sm font-semibold text-white hover:border-[#e8d8a8]"
+                  className="inline-flex items-center justify-center rounded-full border border-[#7bb28f]/60 px-6 py-3 text-sm font-semibold text-white hover:border-[#9cdbb2]"
                 >
                   Read recent analysis
                 </Link>
@@ -148,13 +151,13 @@ export default function HomePage() {
             </div>
 
             <aside className="rounded-[2rem] border border-white/10 bg-white/5 p-7 shadow-2xl shadow-black/20 backdrop-blur-sm">
-              <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#e8d8a8]">
+              <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#d7f3dd]">
                 Editorial line
               </p>
               <ul className="mt-6 space-y-4">
                 {principles.map((item) => (
                   <li key={item} className="flex items-start gap-3 text-sm text-slate-200">
-                    <span className="mt-1 h-2.5 w-2.5 rounded-full bg-[#d7be76]" />
+                    <span className="mt-1 h-2.5 w-2.5 rounded-full bg-[#50c878]" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -176,11 +179,11 @@ export default function HomePage() {
         <section className="mx-auto max-w-6xl px-6 py-10 md:-mt-10 md:relative md:z-10">
           <div className="grid gap-4 md:grid-cols-3">
             {signalBlocks.map((block) => (
-              <div key={block.label} className="signal-card rounded-[1.35rem] p-6">
-                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#8a6d2f]">
+              <div key={block.label} className={`${block.tone === "green" ? "signal-card-green" : "signal-card"} rounded-[1.35rem] p-6`}>
+                <p className={`text-[11px] font-bold uppercase tracking-[0.22em] ${block.tone === "green" ? "text-[#1b4d3e]" : "text-[#8a6d2f]"}`}>
                   {block.label}
                 </p>
-                <p className="mt-3 text-2xl font-semibold text-[#001f3f]">{block.value}</p>
+                <p className={`mt-3 text-2xl font-semibold ${block.tone === "green" ? "text-[#1b4d3e]" : "text-[#001f3f]"}`}>{block.value}</p>
                 <p className="mt-3 text-sm leading-7 text-slate-600">{block.detail}</p>
               </div>
             ))}
@@ -207,7 +210,7 @@ export default function HomePage() {
                 href={`/posts/${post.slug}`}
                 className="group rounded-[1.5rem] border border-[#ddd3c1] bg-[linear-gradient(180deg,_#fffdfa_0%,_#f8f3e9_100%)] p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
               >
-                <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#8a6d2f]">
+                <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#2e8b57]">
                   {post.category}
                 </p>
                 <h3 className="mt-4 text-2xl leading-tight text-slate-900 group-hover:text-[#214236]">
@@ -216,7 +219,7 @@ export default function HomePage() {
                 <p className="mt-4 text-sm leading-7 text-slate-600">{post.excerpt}</p>
                 <div className="mt-8 flex items-center justify-between text-sm font-medium text-slate-400">
                   <span>{post.meta}</span>
-                  <span className="text-[#214236]">Read -&gt;</span>
+                  <span className="text-[#2e8b57]">Read -&gt;</span>
                 </div>
               </Link>
             ))}
@@ -252,13 +255,13 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="bg-[linear-gradient(180deg,_#12233f_0%,_#0c1628_100%)] text-white">
+        <section className="bg-[radial-gradient(circle_at_top_left,_rgba(46,139,87,0.12),_transparent_24%),linear-gradient(180deg,_#12233f_0%,_#0c1628_100%)] text-white">
           <div className="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-20 md:flex-row md:items-end md:justify-between">
             <div className="max-w-2xl">
-              <p className="mb-3 text-xs font-bold uppercase tracking-[0.24em] text-[#e8d8a8]">
+              <p className="mb-3 text-xs font-bold uppercase tracking-[0.24em] text-[#9cdbb2]">
                 Newsletter
               </p>
-              <h2 className="text-4xl">Off the Record</h2>
+              <h2 className="text-4xl text-white">Off the Record</h2>
               <p className="mt-5 text-lg leading-8 text-slate-300">
                 Weekly writing for readers who want markets explained with evidence,
                 judgment, and an actual point of view. Not financial advice.
@@ -269,7 +272,7 @@ export default function HomePage() {
                 href="https://www.linkedin.com/newsletters/off-the-record-english-7439854561286262784/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-full bg-[#e8d8a8] px-6 py-3 text-sm font-semibold text-[#10213f] hover:bg-[#f0e3bc]"
+                className="inline-flex items-center justify-center rounded-full bg-[#d4af37] px-6 py-3 text-sm font-semibold text-[#10213f] hover:bg-[#e7c86d]"
               >
                 Subscribe in English
               </a>
@@ -277,7 +280,7 @@ export default function HomePage() {
                 href="https://www.linkedin.com/newsletters/7439855200535904256/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-full border border-[#b7a880]/60 px-6 py-3 text-sm font-semibold text-white hover:border-[#e8d8a8]"
+                className="inline-flex items-center justify-center rounded-full border border-[#50c878]/60 px-6 py-3 text-sm font-semibold text-white hover:border-[#86e0a7]"
               >
                 Suscribirse en espanol
               </a>
