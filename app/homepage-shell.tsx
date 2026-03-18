@@ -14,6 +14,7 @@ type HomeContent = {
   navArticles: string;
   navDavid: string;
   navNewsletter: string;
+  navNewsletterHref: string;
   navEnglish: string;
   navSpanish: string;
   heroEyebrow: string;
@@ -36,8 +37,8 @@ type HomeContent = {
   newsletterEyebrow: string;
   newsletterTitle: string;
   newsletterBody: string;
-  newsletterEnglishCta: string;
-  newsletterSpanishCta: string;
+  newsletterPrimaryCta: string;
+  newsletterSecondaryCta: string;
   footerDisclaimer: string;
   featuredPosts: BlogPost[];
   signalBlocks: SignalBlock[];
@@ -64,14 +65,15 @@ const CONTENT: Record<Language, HomeContent> = {
   en: {
     navArticles: "Articles",
     navDavid: "David",
-    navNewsletter: "Off the Record",
+    navNewsletter: "The Signal",
+    navNewsletterHref: "#newsletter",
     navEnglish: "EN",
     navSpanish: "ES",
     heroEyebrow: "Finance, power, and market judgment",
     heroStatement: "Data, perspective, and qualitative insight in the same analysis.",
     heroBody:
       "FinTara is where David Tarazona writes about investing, incentives, financial power, and market structure. The point is not to separate the math from the judgment. The point is to combine evidence, interpretation, and clear qualitative insight while staying honest about uncertainty.",
-    primaryCta: "Subscribe to the newsletter",
+    primaryCta: "Join The Signal",
     secondaryCta: "Read recent analysis",
     editorialLine: "Editorial line",
     principles: [
@@ -95,11 +97,11 @@ const CONTENT: Record<Language, HomeContent> = {
     ],
     aboutLink: "Follow David on LinkedIn",
     newsletterEyebrow: "Newsletter",
-    newsletterTitle: "Off the Record",
+    newsletterTitle: "The Signal",
     newsletterBody:
-      "Weekly writing for readers who want markets explained with evidence, judgment, and an actual point of view. Not financial advice.",
-    newsletterEnglishCta: "Subscribe in English",
-    newsletterSpanishCta: "Suscribirse en espanol",
+      "FinTara's own email newsletter: a weekly signal on markets, incentives, and financial power. Separate from Off the Record on LinkedIn. Not financial advice.",
+    newsletterPrimaryCta: "Email signup coming soon",
+    newsletterSecondaryCta: "Read Off the Record on LinkedIn",
     footerDisclaimer: "Analysis only, not financial advice.",
     featuredPosts: BLOG_CONTENT.en,
     signalBlocks: [
@@ -126,14 +128,15 @@ const CONTENT: Record<Language, HomeContent> = {
   es: {
     navArticles: "Articulos",
     navDavid: "David",
-    navNewsletter: "Off the Record",
+    navNewsletter: "The Signal",
+    navNewsletterHref: "#newsletter",
     navEnglish: "EN",
     navSpanish: "ES",
     heroEyebrow: "Finanzas, poder y criterio de mercado",
     heroStatement: "Datos, perspectiva e intuicion cualitativa en el mismo analisis.",
     heroBody:
       "FinTara es donde David Tarazona escribe sobre inversion, incentivos, poder financiero y estructura de mercado. La idea no es separar los numeros del criterio. La idea es combinar evidencia, interpretacion y lectura cualitativa con honestidad sobre la incertidumbre.",
-    primaryCta: "Suscribirse al newsletter",
+    primaryCta: "Entrar a The Signal",
     secondaryCta: "Leer analisis recientes",
     editorialLine: "Linea editorial",
     principles: [
@@ -157,11 +160,11 @@ const CONTENT: Record<Language, HomeContent> = {
     ],
     aboutLink: "Seguir a David en LinkedIn",
     newsletterEyebrow: "Newsletter",
-    newsletterTitle: "Off the Record",
+    newsletterTitle: "The Signal",
     newsletterBody:
-      "Escritura semanal para quienes quieren entender los mercados con evidencia, criterio y un punto de vista real. No es asesoria financiera.",
-    newsletterEnglishCta: "Subscribe in English",
-    newsletterSpanishCta: "Suscribirse en espanol",
+      "El newsletter propio de FinTara por email: una senal semanal sobre mercados, incentivos y poder financiero. Separado de Off the Record en LinkedIn. No es asesoria financiera.",
+    newsletterPrimaryCta: "Signup por email pronto",
+    newsletterSecondaryCta: "Leer Off the Record en LinkedIn",
     footerDisclaimer: "Analisis, no asesoria financiera.",
     featuredPosts: BLOG_CONTENT.es,
     signalBlocks: [
@@ -221,14 +224,12 @@ export function HomePageShell({ language }: { language: Language }) {
                 {content.navSpanish}
               </Link>
             </div>
-            <a
-              href={isSpanish ? "https://www.linkedin.com/newsletters/7439855200535904256/" : "https://www.linkedin.com/newsletters/off-the-record-english-7439854561286262784/"}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href={`${isSpanish ? "/es" : "/"}${content.navNewsletterHref}`}
               className="rounded-full bg-[#001f3f] px-4 py-2 text-sm font-semibold text-white hover:bg-[#001735]"
             >
               {content.navNewsletter}
-            </a>
+            </Link>
           </nav>
         </div>
       </header>
@@ -250,14 +251,12 @@ export function HomePageShell({ language }: { language: Language }) {
                 {content.heroBody}
               </p>
               <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                <a
-                  href={isSpanish ? "https://www.linkedin.com/newsletters/7439855200535904256/" : "https://www.linkedin.com/newsletters/off-the-record-english-7439854561286262784/"}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href={`${isSpanish ? "/es" : "/"}#newsletter`}
                   className="inline-flex items-center justify-center rounded-full bg-[#2e8b57] px-6 py-3 text-sm font-semibold text-white hover:bg-[#256f46]"
                 >
                   {content.primaryCta}
-                </a>
+                </Link>
                 <Link
                   href={isSpanish ? "/es/blog" : "/blog"}
                   className="inline-flex items-center justify-center rounded-full border border-[#7bb28f]/60 px-6 py-3 text-sm font-semibold text-white hover:border-[#9cdbb2]"
@@ -366,7 +365,7 @@ export function HomePageShell({ language }: { language: Language }) {
           </div>
         </section>
 
-        <section className="bg-[radial-gradient(circle_at_top_left,_rgba(46,139,87,0.12),_transparent_24%),linear-gradient(180deg,_#12233f_0%,_#0c1628_100%)] text-white">
+        <section id="newsletter" className="bg-[radial-gradient(circle_at_top_left,_rgba(46,139,87,0.12),_transparent_24%),linear-gradient(180deg,_#12233f_0%,_#0c1628_100%)] text-white">
           <div className="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-20 md:flex-row md:items-end md:justify-between">
             <div className="max-w-2xl">
               <p className="mb-3 text-xs font-bold uppercase tracking-[0.24em] text-[#9cdbb2]">
@@ -379,20 +378,18 @@ export function HomePageShell({ language }: { language: Language }) {
             </div>
             <div className="flex flex-col gap-4 sm:flex-row">
               <a
-                href="https://www.linkedin.com/newsletters/off-the-record-english-7439854561286262784/"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#"
                 className="inline-flex items-center justify-center rounded-full bg-[#d4af37] px-6 py-3 text-sm font-semibold text-[#10213f] hover:bg-[#e7c86d]"
               >
-                {content.newsletterEnglishCta}
+                {content.newsletterPrimaryCta}
               </a>
               <a
-                href="https://www.linkedin.com/newsletters/7439855200535904256/"
+                href={isSpanish ? "https://www.linkedin.com/newsletters/7439855200535904256/" : "https://www.linkedin.com/newsletters/off-the-record-english-7439854561286262784/"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center rounded-full border border-[#50c878]/60 px-6 py-3 text-sm font-semibold text-white hover:border-[#86e0a7]"
               >
-                {content.newsletterSpanishCta}
+                {content.newsletterSecondaryCta}
               </a>
             </div>
           </div>
