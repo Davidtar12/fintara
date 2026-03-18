@@ -1,16 +1,7 @@
 "use client";
 
 import Link from "next/link";
-
-type Language = "en" | "es";
-
-type FeaturedPost = {
-  slug: string;
-  category: string;
-  title: string;
-  excerpt: string;
-  meta: string;
-};
+import { BLOG_CONTENT, type BlogPost, type Language } from "./blog-content";
 
 type SignalBlock = {
   label: string;
@@ -48,7 +39,7 @@ type HomeContent = {
   newsletterEnglishCta: string;
   newsletterSpanishCta: string;
   footerDisclaimer: string;
-  featuredPosts: FeaturedPost[];
+  featuredPosts: BlogPost[];
   signalBlocks: SignalBlock[];
 };
 
@@ -110,32 +101,7 @@ const CONTENT: Record<Language, HomeContent> = {
     newsletterEnglishCta: "Subscribe in English",
     newsletterSpanishCta: "Suscribirse en espanol",
     footerDisclaimer: "Analysis only, not financial advice.",
-    featuredPosts: [
-      {
-        slug: "etf-fee-compression-2026",
-        category: "Investing",
-        title: "ETF fees hit a 10-year low. Who actually keeps the gain?",
-        excerpt:
-          "Fee compression sounds universally good until you map where the savings are material and where the marketing is ahead of the math.",
-        meta: "5 min read",
-      },
-      {
-        slug: "ibkr-vs-brokers-2026",
-        category: "Tools",
-        title: "Interactive Brokers vs the rest: the real trade-offs after 3 years",
-        excerpt:
-          "Execution quality, margin rates, reporting friction, and why the best broker for serious investors is still not the easiest one.",
-        meta: "7 min read",
-      },
-      {
-        slug: "macro-signals-q1-2026",
-        category: "Macro",
-        title: "Three macro signals worth tracking before the market narrative changes",
-        excerpt:
-          "Not predictions. The specific data points that tend to shift the story before headlines catch up.",
-        meta: "4 min read",
-      },
-    ],
+    featuredPosts: BLOG_CONTENT.en,
     signalBlocks: [
       {
         label: "Angle",
@@ -197,32 +163,7 @@ const CONTENT: Record<Language, HomeContent> = {
     newsletterEnglishCta: "Subscribe in English",
     newsletterSpanishCta: "Suscribirse en espanol",
     footerDisclaimer: "Analisis, no asesoria financiera.",
-    featuredPosts: [
-      {
-        slug: "compresion-comisiones-etf-2026",
-        category: "Inversion",
-        title: "Las comisiones de los ETF tocaron minimo de 10 anos. Quien se queda realmente con esa ganancia?",
-        excerpt:
-          "La compresion de fees suena positiva para todos hasta que miras donde el ahorro es material y donde el marketing va por delante de los numeros.",
-        meta: "5 min de lectura",
-      },
-      {
-        slug: "ibkr-vs-brokers-2026-es",
-        category: "Herramientas",
-        title: "Interactive Brokers contra el resto: los trade-offs reales despues de 3 anos",
-        excerpt:
-          "Calidad de ejecucion, tasas de margen, friccion operativa y por que el mejor broker para inversores serios no siempre es el mas facil.",
-        meta: "7 min de lectura",
-      },
-      {
-        slug: "senales-macro-q1-2026",
-        category: "Macro",
-        title: "Tres senales macro que vale la pena seguir antes de que cambie la narrativa",
-        excerpt:
-          "No son predicciones. Son datos que suelen mover la historia antes de que los titulares se pongan al dia.",
-        meta: "4 min de lectura",
-      },
-    ],
+    featuredPosts: BLOG_CONTENT.es,
     signalBlocks: [
       {
         label: "Angulo",
