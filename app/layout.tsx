@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "FinTara - Personal Finance & Wealth Building",
-  description: "Learn stocks, crypto, wealth building, and financial independence from David Tarazona",
+  title: { default: "FinTara — Finance & Investing", template: "%s | FinTara" },
+  description: "Sharp, data-grounded finance writing. No hype. No hot takes without numbers. By David Tarazona.",
   keywords: "finance, stocks, cryptocurrency, wealth building, passive income, financial independence",
   authors: [{ name: "David Tarazona" }],
   creator: "David Tarazona",
