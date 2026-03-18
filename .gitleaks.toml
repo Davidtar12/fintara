@@ -1,0 +1,22 @@
+# gitleaks configuration — prevents accidental secret commits
+# https://github.com/gitleaks/gitleaks
+
+title = "fintara gitleaks config"
+
+[extend]
+# Use the default ruleset as the base
+useDefault = true
+
+[allowlist]
+description = "Safe patterns — not real secrets"
+# Allow placeholder / example values in source files
+regexes = [
+  '''NEXT_PUBLIC_SITE_NAME.*=.*"FinTara"''',
+  '''NEXT_PUBLIC_SITE_URL.*=.*fintara''',
+  '''fintara\.vercel\.app''',
+]
+paths = [
+  '''vercel\.json''',
+  '''next\.config\.js''',
+  '''README\.md''',
+]

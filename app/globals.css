@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply box-border;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply antialiased;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-["Playfair Display"];
+}
+
+/* Links */
+a {
+  @apply transition-colors duration-200;
+}
+
+/* Buttons */
+button {
+  @apply font-medium;
+}
+
+/* Code blocks */
+code {
+  @apply bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-sm;
+}
+
+pre {
+  @apply bg-gray-100 dark:bg-gray-800 p-4 rounded-lg overflow-x-auto;
+}
+
+pre code {
+  @apply bg-transparent px-0 py-0;
+}
+
+/* Articles */
+article {
+  @apply prose prose-invert max-w-none;
+}
+
+article h2 {
+  @apply text-2xl font-bold mt-8 mb-4;
+}
+
+article h3 {
+  @apply text-xl font-bold mt-6 mb-3;
+}
+
+article p {
+  @apply mb-4 leading-relaxed;
+}
+
+article ul, article ol {
+  @apply mb-4 ml-6;
+}
+
+article li {
+  @apply mb-2;
+}
+
+article a {
+  @apply text-green-600 hover:text-green-700 underline;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 dark:bg-gray-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-400 dark:bg-gray-600 rounded-full hover:bg-gray-500 dark:hover:bg-gray-500;
+}
+
+/* Selection */
+::selection {
+  @apply bg-green-600 text-white;
+}
