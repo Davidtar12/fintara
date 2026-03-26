@@ -1,6 +1,16 @@
 import Link from "next/link";
 
 import { BLOG_CONTENT } from "../../blog-content";
+import { getAllMdxPosts } from "../../../lib/mdx";
+
+type PostItem = {
+  slug: string;
+  category: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  readTime: string;
+};
 
 function BlogHeaderEs() {
   return (
@@ -21,7 +31,26 @@ function BlogHeaderEs() {
 }
 
 export default function BlogPageEs() {
-  const posts = BLOG_CONTENT.es;
+  const hardcoded: PostItem[] = BLOG_CONTENT.es.map((p) => ({
+    slug: p.slug,
+    category: p.category,
+    title: p.title,
+    excerpt: p.excerpt,
+    date: p.date,
+    readTime: p.readTime,
+  }));
+
+  const mdx: PostItem[] = getAllMdxPosts("es");
+
+  // Merge: MDX posts first (newest), then hardcoded. Deduplicate by slug.
+  const seen = new Set<string>();
+  const allPosts: PostItem[] = [];
+  for (const post of [...mdx, ...hardcoded]) {
+    if (!seen.has(post.slug)) {
+      seen.add(post.slug);
+      allPosts.push(post);
+    }
+  }
 
   return (
     <div className="min-h-screen text-slate-900">
@@ -31,12 +60,12 @@ export default function BlogPageEs() {
           <p className="mb-3 text-xs font-bold uppercase tracking-[0.24em] text-[#8a6d2f]">Archivo en espanol</p>
           <h1 className="text-5xl">Articulos de FinTara</h1>
           <p className="mt-5 text-lg leading-8 text-slate-600">
-            Archivo inicial en espanol para que FinTara tenga una presencia bilingue real desde el primer dia. Cada pieza tiene su propia pagina placeholder.
+            Analisis, herramientas y estrategia para inversores que les importan los detalles.
           </p>
         </div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-2">
-          {posts.map((post) => (
+          {allPosts.map((post) => (
             <Link
               key={post.slug}
               href={`/es/posts/${post.slug}`}

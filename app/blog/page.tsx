@@ -1,7 +1,16 @@
 import Link from "next/link";
 
 import { BLOG_CONTENT } from "../blog-content";
-import { HomePageShell } from "../homepage-shell";
+import { getAllMdxPosts } from "../../lib/mdx";
+
+type PostItem = {
+  slug: string;
+  category: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  readTime: string;
+};
 
 function BlogHeader() {
   return (
@@ -22,7 +31,26 @@ function BlogHeader() {
 }
 
 export default function BlogPage() {
-  const posts = BLOG_CONTENT.en;
+  const hardcoded: PostItem[] = BLOG_CONTENT.en.map((p) => ({
+    slug: p.slug,
+    category: p.category,
+    title: p.title,
+    excerpt: p.excerpt,
+    date: p.date,
+    readTime: p.readTime,
+  }));
+
+  const mdx: PostItem[] = getAllMdxPosts("en");
+
+  // Merge: MDX posts first (newest), then hardcoded. Deduplicate by slug.
+  const seen = new Set<string>();
+  const allPosts: PostItem[] = [];
+  for (const post of [...mdx, ...hardcoded]) {
+    if (!seen.has(post.slug)) {
+      seen.add(post.slug);
+      allPosts.push(post);
+    }
+  }
 
   return (
     <div className="min-h-screen text-slate-900">
@@ -32,12 +60,12 @@ export default function BlogPage() {
           <p className="mb-3 text-xs font-bold uppercase tracking-[0.24em] text-[#8a6d2f]">English archive</p>
           <h1 className="text-5xl">FinTara articles</h1>
           <p className="mt-5 text-lg leading-8 text-slate-600">
-            Placeholder archive for the first English posts. Each piece is already wired to its own page so the site behaves like a real publication while content expands.
+            Analysis, tools, and strategy for retail investors who care about detail.
           </p>
         </div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-2">
-          {posts.map((post) => (
+          {allPosts.map((post) => (
             <Link
               key={post.slug}
               href={`/posts/${post.slug}`}
