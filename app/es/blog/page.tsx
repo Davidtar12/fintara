@@ -20,7 +20,7 @@ function BlogHeaderEs() {
           <span>FINTARA</span>
         </Link>
         <nav className="hidden items-center gap-8 md:flex">
-          <Link href="/es/blog" className="text-sm font-medium text-slate-900">Articulos</Link>
+          <Link href="/es/blog" className="text-sm font-medium text-slate-900">Artículos</Link>
           <Link href="/blog" className="rounded-full border border-[#d8cfbd] px-4 py-2 text-sm font-semibold text-slate-700 hover:text-slate-900">
             EN
           </Link>
@@ -57,10 +57,10 @@ export default function BlogPageEs() {
       <BlogHeaderEs />
       <main className="mx-auto max-w-6xl px-6 py-16">
         <div className="max-w-3xl">
-          <p className="mb-3 text-xs font-bold uppercase tracking-[0.24em] text-[#8a6d2f]">Archivo en espanol</p>
-          <h1 className="text-5xl">Articulos de FinTara</h1>
+          <p className="mb-3 text-xs font-bold uppercase tracking-[0.24em] text-[#8a6d2f]">Archivo en español</p>
+          <h1 className="text-5xl">Artículos de FinTara</h1>
           <p className="mt-5 text-lg leading-8 text-slate-600">
-            Analisis, herramientas y estrategia para inversores que les importan los detalles.
+            Análisis, herramientas y estrategia para inversores que les importan los detalles.
           </p>
         </div>
 
@@ -79,7 +79,7 @@ export default function BlogPageEs() {
               <p className="mt-4 text-sm leading-7 text-slate-600">{post.excerpt}</p>
               <div className="mt-8 flex items-center justify-between text-sm font-medium text-slate-400">
                 <span>{post.readTime}</span>
-                <span className="text-[#2e8b57]">Leer articulo -&gt;</span>
+                <span className="text-[#2e8b57]">Leer artículo -&gt;</span>
               </div>
             </Link>
           ))}

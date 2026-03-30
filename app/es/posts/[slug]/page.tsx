@@ -67,7 +67,7 @@ export default function PostPageEs({ params }: { params: { slug: string } }) {
               <span>FINTARA</span>
             </Link>
             <Link href="/es/blog" className="text-sm font-semibold text-[#214236] hover:text-[#173229]">
-              Volver a articulos
+              Volver a artículos
             </Link>
           </div>
         </header>
@@ -99,7 +99,7 @@ export default function PostPageEs({ params }: { params: { slug: string } }) {
             <span>FINTARA</span>
           </Link>
           <Link href="/es/blog" className="text-sm font-semibold text-[#214236] hover:text-[#173229]">
-            Volver a articulos
+            Volver a artículos
           </Link>
         </div>
       </header>
