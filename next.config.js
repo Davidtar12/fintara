@@ -7,7 +7,7 @@ const nextConfig = {
   },
   env: {
     NEXT_PUBLIC_SITE_NAME: "FinTara",
-    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL || "https://fintara.vercel.app",
+    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL || "https://fintara.app",
   },
 };
 

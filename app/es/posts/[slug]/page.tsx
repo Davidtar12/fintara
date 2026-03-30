@@ -2,9 +2,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
+import type { Metadata } from "next";
 
 import { BLOG_CONTENT, getPost } from "../../../blog-content";
 import { getMdxPost, getAllMdxPosts } from "../../../../lib/mdx";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://fintara.app";
 
 export function generateStaticParams() {
   const hardcoded = BLOG_CONTENT.es.map((p) => ({ slug: p.slug }));
@@ -12,6 +15,27 @@ export function generateStaticParams() {
   const seen = new Set(hardcoded.map((p) => p.slug));
   const merged = [...hardcoded, ...mdx.filter((p) => !seen.has(p.slug))];
   return merged;
+}
+
+export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+  const mdxPost = getMdxPost("es", params.slug);
+  const post = mdxPost || getPost("es", params.slug);
+  if (!post) return {};
+
+  return {
+    title: post.title,
+    description: post.excerpt,
+    alternates: { canonical: `/es/posts/${params.slug}` },
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      url: `${SITE_URL}/es/posts/${params.slug}`,
+      type: "article",
+      locale: "es_ES",
+      publishedTime: post.date ? new Date(post.date).toISOString() : undefined,
+      authors: ["David Tarazona"],
+    },
+  };
 }
 
 function PostHeader({ category, title, date, readTime, excerpt, isPlaceholder }: {
