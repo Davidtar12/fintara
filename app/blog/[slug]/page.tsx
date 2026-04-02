@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
@@ -5,6 +6,32 @@ import remarkGfm from "remark-gfm";
 
 import { BLOG_CONTENT, getPost } from "../../blog-content";
 import { getMdxPost, getAllMdxPosts } from "../../../lib/mdx";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const mdxPost = getMdxPost("en", params.slug);
+  if (!mdxPost) return {};
+
+  return {
+    title: mdxPost.title,
+    description: mdxPost.excerpt,
+    openGraph: {
+      title: mdxPost.title,
+      description: mdxPost.excerpt,
+      type: "article",
+      ...(mdxPost.ogImage ? { images: [{ url: mdxPost.ogImage, width: 1200, height: 630 }] } : {}),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: mdxPost.title,
+      description: mdxPost.excerpt,
+      ...(mdxPost.ogImage ? { images: [mdxPost.ogImage] } : {}),
+    },
+  };
+}
 
 export function generateStaticParams() {
   const hardcoded = BLOG_CONTENT.en.map((p) => ({ slug: p.slug }));
@@ -14,8 +41,20 @@ export function generateStaticParams() {
   return merged;
 }
 
-function PostHeader({ category, title, date, readTime, excerpt, isPlaceholder }: {
-  category: string; title: string; date: string; readTime: string; excerpt: string; isPlaceholder: boolean;
+function PostHeader({
+  category,
+  title,
+  date,
+  readTime,
+  excerpt,
+  isPlaceholder,
+}: {
+  category: string;
+  title: string;
+  date: string;
+  readTime: string;
+  excerpt: string;
+  isPlaceholder: boolean;
 }) {
   return (
     <>
@@ -28,6 +67,20 @@ function PostHeader({ category, title, date, readTime, excerpt, isPlaceholder }:
       </div>
       <p className="mt-8 text-xl leading-9 text-slate-600">{excerpt}</p>
     </>
+  );
+}
+
+function AttributionLine({ attribution }: { attribution: string }) {
+  // Convert markdown links to HTML
+  const html = attribution.replace(
+    /\[([^\]]+)\]\(([^)]+)\)/g,
+    '<a href="$2" target="_blank" rel="noopener noreferrer" class="underline">$1</a>'
+  );
+  return (
+    <p
+      className="mt-2 text-xs text-slate-400 text-right"
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
   );
 }
 
@@ -57,25 +110,26 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
             isPlaceholder={false}
           />
           {mdxPost.coverImage && (
-            <div className="mt-10 overflow-hidden rounded-2xl">
+            <figure className="mt-10">
               <img
                 src={mdxPost.coverImage}
                 alt={mdxPost.title}
-                className="w-full object-cover max-h-[480px]"
+                className="w-full rounded-2xl object-cover max-h-[480px]"
               />
               {mdxPost.coverImageAttribution && (
-                <p
-                  className="mt-2 text-xs text-slate-400 text-right"
-                  dangerouslySetInnerHTML={{ __html: mdxPost.coverImageAttribution.replace(
-                    /\[([^\]]+)\]\(([^)]+)\)/g,
-                    '<a href="$2" target="_blank" rel="noopener noreferrer" class="underline">$1</a>'
-                  )}}
-                />
+                <figcaption>
+                  <AttributionLine attribution={mdxPost.coverImageAttribution} />
+                </figcaption>
               )}
-            </div>
+            </figure>
           )}
-          <article className="prose prose-lg prose-slate mt-12 max-w-none">
-            <MDXRemote source={mdxPost.content} options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }} />
+          <article className="prose prose-lg prose-slate mt-12 max-w-none
+            prose-img:rounded-xl prose-img:shadow-md
+            prose-figcaption:text-xs prose-figcaption:text-slate-400">
+            <MDXRemote
+              source={mdxPost.content}
+              options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
+            />
           </article>
         </main>
       </div>

@@ -12,6 +12,7 @@ export type MdxMeta = {
   date: string;
   readTime: string;
   coverImage?: string;
+  ogImage?: string;
   coverImageAttribution?: string;
 };
 
@@ -38,6 +39,7 @@ export function getMdxPost(lang: string, slug: string): MdxPost | null {
     date: data.date || "",
     readTime: data.readTime || "",
     coverImage: data.coverImage || "",
+    ogImage: data.ogImage || data.coverImage || "",
     coverImageAttribution: data.coverImageAttribution || "",
     content,
   };
@@ -66,6 +68,7 @@ export function getAllMdxPosts(lang: string): MdxMeta[] {
         date: data.date || "",
         readTime: data.readTime || "",
         coverImage: data.coverImage || "",
+        ogImage: data.ogImage || data.coverImage || "",
         coverImageAttribution: data.coverImageAttribution || "",
       };
     })
