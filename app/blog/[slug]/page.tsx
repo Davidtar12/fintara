@@ -56,6 +56,24 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
             excerpt={mdxPost.excerpt}
             isPlaceholder={false}
           />
+          {mdxPost.coverImage && (
+            <div className="mt-10 overflow-hidden rounded-2xl">
+              <img
+                src={mdxPost.coverImage}
+                alt={mdxPost.title}
+                className="w-full object-cover max-h-[480px]"
+              />
+              {mdxPost.coverImageAttribution && (
+                <p
+                  className="mt-2 text-xs text-slate-400 text-right"
+                  dangerouslySetInnerHTML={{ __html: mdxPost.coverImageAttribution.replace(
+                    /\[([^\]]+)\]\(([^)]+)\)/g,
+                    '<a href="$2" target="_blank" rel="noopener noreferrer" class="underline">$1</a>'
+                  )}}
+                />
+              )}
+            </div>
+          )}
           <article className="prose prose-lg prose-slate mt-12 max-w-none">
             <MDXRemote source={mdxPost.content} options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }} />
           </article>

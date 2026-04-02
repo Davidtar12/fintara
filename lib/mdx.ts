@@ -11,6 +11,8 @@ export type MdxMeta = {
   excerpt: string;
   date: string;
   readTime: string;
+  coverImage?: string;
+  coverImageAttribution?: string;
 };
 
 export type MdxPost = MdxMeta & {
@@ -35,6 +37,8 @@ export function getMdxPost(lang: string, slug: string): MdxPost | null {
     excerpt: data.excerpt || "",
     date: data.date || "",
     readTime: data.readTime || "",
+    coverImage: data.coverImage || "",
+    coverImageAttribution: data.coverImageAttribution || "",
     content,
   };
 }
@@ -61,6 +65,8 @@ export function getAllMdxPosts(lang: string): MdxMeta[] {
         excerpt: data.excerpt || "",
         date: data.date || "",
         readTime: data.readTime || "",
+        coverImage: data.coverImage || "",
+        coverImageAttribution: data.coverImageAttribution || "",
       };
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
