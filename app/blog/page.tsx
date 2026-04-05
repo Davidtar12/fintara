@@ -10,6 +10,7 @@ type PostItem = {
   excerpt: string;
   date: string;
   readTime: string;
+  coverImage?: string;
 };
 
 function BlogHeader() {
@@ -38,6 +39,7 @@ export default function BlogPage() {
     excerpt: p.excerpt,
     date: p.date,
     readTime: p.readTime,
+    coverImage: (p as { coverImage?: string }).coverImage || "",
   }));
 
   const mdx: PostItem[] = getAllMdxPosts("en");
@@ -69,8 +71,19 @@ export default function BlogPage() {
             <Link
               key={post.slug}
               href={`/posts/${post.slug}`}
-              className="group rounded-[1.5rem] border border-[#ddd3c1] bg-[linear-gradient(180deg,_#fffdfa_0%,_#f8f3e9_100%)] p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
+              className="group rounded-[1.5rem] border border-[#ddd3c1] bg-[linear-gradient(180deg,_#fffdfa_0%,_#f8f3e9_100%)] shadow-sm transition hover:-translate-y-1 hover:shadow-xl overflow-hidden"
             >
+              {post.coverImage && (
+                <div className="h-44 w-full overflow-hidden">
+                  <img
+                    src={post.coverImage}
+                    alt={post.title}
+                    className="h-full w-full object-cover transition group-hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+              )}
+              <div className="p-8">
               <div className="flex items-center justify-between gap-4">
                 <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#2e8b57]">{post.category}</p>
                 <p className="text-xs text-slate-400">{post.date}</p>
@@ -80,6 +93,7 @@ export default function BlogPage() {
               <div className="mt-8 flex items-center justify-between text-sm font-medium text-slate-400">
                 <span>{post.readTime}</span>
                 <span className="text-[#2e8b57]">Read article -&gt;</span>
+              </div>
               </div>
             </Link>
           ))}
