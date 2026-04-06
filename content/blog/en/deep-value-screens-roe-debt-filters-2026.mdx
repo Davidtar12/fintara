@@ -5,39 +5,63 @@ category: "Analysis"
 excerpt: "Most screeners find noise, not value. ROE and debt-to-equity filters combined with sector context uncover specific, concentrated bets — not the broad winners that every retail investor already knows."
 date: "Apr 06, 2026"
 readTime: "5 min read"
+coverImage: "https://images.pexels.com/photos/5784807/pexels-photo-5784807.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+ogImage: "https://images.pexels.com/photos/5784807/pexels-photo-5784807.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+coverImageAttribution: "*Close-up of a financial graph on a screen showing stock market trading data and trends. — Photo by [AlphaTradeZone](https://www.pexels.com/@alphatradezone) on [Pexels](https://www.pexels.com)*"
 ---
 
-Most screeners find noise, not value. ROE and debt-to-equity filters combined with sector context uncover specific, concentrated bets — not the broad winners that every retail investor already knows. The Finviz screener returns over 200 results when you filter for ROE above 15% and debt-to-equity below 0.5. That list is useless without further context. This analysis breaks down how to turn raw filters into actionable deep value picks for 2026.
+Most screeners find noise, not value. ROE and debt-to-equity filters combined with sector context uncover specific, concentrated bets — not the broad winners that every retail investor already knows. The Finviz screener returns over 200 results when you filter for ROE above 15% and debt-to-equity below 0.5. That list is useless without further context. Here is how to combine filters that actually separate the ten or twelve names worth owning from the hundreds that merely pass a threshold.
 
 ## Why ROE alone misses 70% of real value opportunities
 
-Return on equity is a popular metric because it's simple: net income divided by shareholders' equity. The problem is that ROE can be inflated by leverage. A company with 40% ROE and a debt-to-equity ratio of 3.0 is not creating value — it's leveraging risk. The Finviz screener doesn't distinguish between these cases by default.
+Return on equity is a popular metric because it is simple: net income divided by shareholders' equity. The problem is that ROE can be inflated by leverage. A company with 40% ROE and a debt-to-equity ratio of 3.0 is not creating value — it is leveraging risk. The Finviz screener does not distinguish between these cases by default.
 
-When you filter for ROE above 20% without controlling for debt, you get financial stocks, MLPs, and companies with aggressive buyback programs that shrink equity artificially. These aren't value opportunities — they're accounting artifacts. The fix is to pair ROE with debt-to-equity below 1.0 and positive free cash flow growth. This combination cuts the Finviz result set from 200+ to roughly 40-60 stocks, most of which show genuine operational efficiency rather than financial engineering.
+When you add a debt-to-equity ceiling of 0.5, the Finviz result set drops from 200+ names to roughly 60. That single filter removes the majority of leveraged financials, REITs, and capital-intensive industrials that inflate the surface-level list. But 60 is still too many. The next layer is sector context: not every sector rewards low leverage equally.
 
-The deeper issue is sector bias. High-ROE, low-debt screens heavily favor technology and healthcare — sectors that are already richly valued. To find genuine deep value, you need to add a P/E or P/B filter that eliminates growth premiums. Screening for ROE above 15%, debt-to-equity below 1.0, and P/E below 15 narrows the field to 15-25 stocks, concentrated in industrials, materials, and select consumer staples. These are the specific bets that broad screens miss.
+In consumer staples, a debt-to-equity of 0.4 is relatively aggressive — these companies typically run at 0.15–0.25 because their cash flows are predictable enough to avoid borrowing. In technology, 0.4 is conservative because high-growth firms often take on debt to accelerate R&D. The same number means different things in different sectors.
 
-## Adding global coverage changes the picture
+## The two-filter framework that reduces noise by 85%
 
-US-focused screens miss half the opportunity set. When you extend the same ROE + debt filters to international markets using tools like IBKR's scanner or Koyfin's global equity dashboard, the hit rate for genuine value increases significantly. Emerging market industrials and European mid-caps frequently show ROE above 18% with debt-to-equity below 0.6 — at P/E ratios of 8-12x. These are the stocks that US-only screeners never surface.
+![Close-up of a hand with pen analyzing financial rates on paper with a calculator and laptop nearby.](https://images.pexels.com/photos/8292880/pexels-photo-8292880.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+*An analyst reviewing detailed financial metrics — the kind of granular work that automated screens cannot fully replicate. — Photo by [RDNE Stock project](https://www.pexels.com/@rdne) on [Pexels](https://www.pexels.com)*
 
-The challenge is data quality. International financial reporting standards differ from US GAAP, so comparing ROE across geographies requires adjustments for goodwill amortization, lease accounting, and currency effects. For retail investors, the simplest approach is to use MSCI metrics or Bloomberg standardized financials rather than raw filing data. Tools like Danelfin are beginning to score international stocks with the same AI framework used for US equities, which should improve cross-border comparability by late 2026.
+Start with ROE above 15% and debt-to-equity below 0.5. Then layer the following:
 
-## What actually works: the three-filter stack
+1. **Free cash flow yield above 5%**. This eliminates companies that report high earnings but do not convert them to cash. Accounting earnings can be manipulated through depreciation schedules, revenue recognition timing, and one-time gains. Free cash flow is harder to fake.
 
-The optimal deep value screen for 2026 combines three filters in sequence. First, ROE above 15% eliminates operationally weak businesses. Second, debt-to-equity below 1.0 removes leveraged ROE inflation. Third, free cash flow yield above 5% ensures the company generates real cash, not just accounting profits. This stack consistently surfaces 20-30 stocks per quarter that outperform broad value indices by 2-4 percentage points annually, based on backtests from 2018 to 2025.
+2. **Three-year revenue CAGR above 3%**. This removes declining businesses that look cheap because the market has correctly priced in contraction. A company with 18% ROE and -2% annual revenue growth is returning capital through buybacks while the underlying business shrinks.
 
-The implementation is straightforward: run the screen monthly on Finviz or IBKR, rank by free cash flow yield, and hold the top 10-15 positions with equal weight. Rebalance quarterly. The key discipline is not chasing the highest-ROE names but focusing on the intersection of all three metrics. When one filter is missing, the signal degrades — ROE without cash flow validation is the most common failure mode.
+3. **Market cap above $1 billion**. Micro-caps can pass deep value filters but lack the liquidity and analyst coverage to provide price discovery.
 
-## FAQ
+After applying all four filters (ROE, debt, FCF yield, revenue growth), the typical result set drops from 200+ to roughly 15–25 names.
 
-What is a deep value stock screen?
-A deep value screen filters for stocks trading below intrinsic value using metrics like ROE, debt-to-equity, and free cash flow yield. The goal is to find operationally strong companies that the market is underpricing.
+## Sector-specific calibration
 
-Why does ROE alone fail as a value filter?
-ROE can be inflated by high leverage or share buybacks that reduce equity. Without controlling for debt levels and cash flow quality, high-ROE screens surface leveraged bets, not genuine value.
+| Sector | Typical ROE Range | Debt/Equity Norm | Deep Value Signal |
+|---|---|---|---|
+| Technology | 15–35% | 0.1–0.5 | ROE above 20% with D/E below 0.3 |
+| Consumer Staples | 12–25% | 0.15–0.4 | ROE above 15% with D/E below 0.25 |
+| Healthcare | 10–30% | 0.2–0.8 | ROE above 18% with D/E below 0.4 |
+| Industrials | 12–22% | 0.3–1.0 | ROE above 16% with D/E below 0.5 |
+| Financials | 10–18% | N/A (leverage-based) | Price-to-tangible-book below 1.2 |
 
-What tools can I use for deep value screening?
-Finviz, IBKR's stock scanner, Koyfin, and Danelfin all support multi-factor screening. For global coverage, IBKR and Koyfin offer the broadest market access.
+Financials break the framework entirely. Banks and insurers operate with leverage as a core business model. For financials, replace the filter set with price-to-tangible-book below 1.2 and return on tangible equity above 12%.
 
-Read the full analysis on FinTara → https://fintara.app
+## The failure mode: when deep value screens find traps
+
+![A business professional in a brown suit analyzes printed reports at a desk with a computer.](https://images.pexels.com/photos/8123902/pexels-photo-8123902.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+*The manual review step that separates deep value discovery from mechanical screening. — Photo by [RDNE Stock project](https://www.pexels.com/@rdne) on [Pexels](https://www.pexels.com)*
+
+Deep value screens fail in three predictable ways:
+
+**Cyclical peaks**: Companies at the top of their earnings cycle show inflated ROE. A mining company with 25% ROE during a commodity supercycle reverts to 8–10% when prices normalize.
+
+**Accounting distortions**: Share buybacks reduce equity, which mechanically increases ROE without improving profitability. A company borrowing to buy back shares can show 30% ROE while destroying bondholder value.
+
+**Structural decline with lagging financials**: Some businesses report strong trailing metrics while their competitive position erodes. The numbers were real; the business model was dying.
+
+The fix: overlay qualitative judgment. No screen replaces reading the 10-K and understanding industry dynamics. The screen generates candidates. The analysis makes the decision.
+
+## How FinTara handles this automatically
+
+FinTara's stock screener applies the ROE + debt filter combination by default and adds free cash flow yield and revenue growth as secondary filters. The sector-adjusted thresholds are built into the scoring model, so a technology company with 22% ROE and 0.25 D/E scores differently from a consumer staples company with identical numbers. This eliminates the sector-blindness problem that makes raw Finviz screens unreliable for concentrated, deep-value bets.

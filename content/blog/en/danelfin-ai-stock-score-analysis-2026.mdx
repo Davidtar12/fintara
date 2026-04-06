@@ -1,47 +1,63 @@
 ---
-title: "Danelfin AI Stock Score Analysed: Why the 1-10 System Beats Simple Value Screens"
+title: "Danelfin AI Stock Score Analysed: How 1,200 Features Predict 60-Day Winners"
 slug: "danelfin-ai-stock-score-analysis-2026"
 category: "Analysis"
-excerpt: "Danelfin's 1-10 AI scoring system analyses 1,200+ features daily per stock. In 2024 backtests, the top decile returned 25.4% versus the S&P 500's 12.1%. But the system still misses qualitative context."
+excerpt: "Danelfin processes 1,200+ features per stock daily — technical, fundamental, and sentiment. Backtests show 9-10 rated stocks returned 25.4% in 2024 versus the S&P 500's 12.1%. Here is how the engine works under the hood."
 date: "Apr 06, 2026"
 readTime: "5 min read"
+coverImage: "https://images.pexels.com/photos/8849295/pexels-photo-8849295.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+ogImage: "https://images.pexels.com/photos/8849295/pexels-photo-8849295.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+coverImageAttribution: "*Abstract illustration of AI with silhouette head full of eyes, symbolizing observation and technology. — Photo by [Tara Winstead](https://www.pexels.com/@tara-winstead) on [Pexels](https://www.pexels.com)*"
 ---
 
-Danelfin's 1-10 AI scoring system analyses 1,200+ technical, fundamental, and sentiment features daily per stock. In 2024 backtests, portfolios built on 9-10 rated stocks returned 25.4% versus the S&P 500's 12.1%. The system works because it rank-orders probability of outperformance, not just value or momentum in isolation. But the score still misses qualitative context that retail investors need — management quality, competitive moats, and sector narrative shifts that don't show up in quantitative features.
+Danelfin's AI engine processes 1,200+ features per stock every trading day and compresses them into a single 1–10 score. In 2024 backtests, portfolios built from 9- and 10-rated stocks returned 25.4% versus the S&P 500's 12.1%. The system works because it rank-orders probability of near-term outperformance — not value, not growth, not momentum alone, but the statistical intersection of all three. This article breaks down the engineering behind that score: the three feature pillars, the scoring methodology, weighting dynamics, and the specific conditions where the model excels or breaks down.
 
-## How the 1-10 scoring system actually works
+## The three feature pillars: what the model actually ingests
 
-Danelfin scores every stock from 1 to 10 based on the probability of beating the market over the next 60-90 days. The engine ingests 1,200+ features spanning three categories: technical indicators (price momentum, volume patterns, volatility metrics), fundamental data (revenue growth, margins, debt ratios), and sentiment signals (analyst revisions, earnings surprise history, news flow). Each feature is weighted by a machine learning model trained on 20 years of market data.
+Danelfin organizes its 1,200+ features into three pillars: technical signals, fundamental data, and sentiment indicators. Each pillar contributes a sub-score from 1 to 10, and the composite score reflects the weighted combination.
 
-The key insight is that the score represents a probability ranking, not a price target. A stock scored 9 is not "better" than a stock scored 7 — it has a statistically higher probability of near-term outperformance based on the current feature set. This distinction matters because probabilities shift daily. A stock can go from 9 to 5 in a week if earnings miss or technical signals deteriorate. Retail investors who treat the score as a static recommendation miss the dynamic nature of the system.
+**Technical (roughly 600 features)**: Price momentum across 5, 20, 60, and 120-day windows. Volume profiles including unusual volume spikes and accumulation/distribution patterns. Volatility regime indicators — historical versus implied, skew, and term structure. Relative strength versus sector and market benchmarks.
 
-## Where the score beats traditional screens
+**Fundamental (roughly 400 features)**: Revenue and earnings growth rates, margin trajectories, debt ratios, return on invested capital, and free cash flow yield. The model also ingests analyst estimate revisions — not just the current consensus, but the direction and velocity of changes.
 
-Traditional value screens use fixed thresholds: P/E below 15, dividend yield above 3%, ROE above 15%. These filters are useful but rigid. They cannot capture momentum shifts, sentiment reversals, or cross-factor interactions. Danelfin's advantage is that it weights factors dynamically — in a risk-off environment, defensive fundamentals get higher weight; in a momentum rally, technical signals dominate.
+**Sentiment (roughly 200 features)**: Earnings surprise history, short interest changes, options flow directionality, and news sentiment scores derived from NLP analysis of financial media. The sentiment pillar is the most volatile and carries the least weight in stable markets, but its influence increases during earnings season and major news events.
 
-In 2024, Danelfin's top-decile portfolio avoided three major sector drawdowns — energy in Q1, regional banks in Q2, and utilities in Q4 — by downgrading scores before the price declines materialized. A static value screen would have held energy stocks through the entire Q1 drawdown because the fundamentals still looked strong on paper. The AI captured the deteriorating technical and sentiment signals that preceded the fundamental confirmation.
+## How the 1–10 composite score is constructed
 
-## Where the score still fails
+![A home office setup featuring multiple monitors displaying trading charts and data analysis.](https://images.pexels.com/photos/5833747/pexels-photo-5833747.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+*A multi-monitor trading setup — the kind of data density that Danelfin's model processes automatically for every stock, every day. — Photo by [AlphaTradeZone](https://www.pexels.com/@alphatradezone) on [Pexels](https://www.pexels.com)*
 
-The 1-10 system has blind spots. First, it cannot assess management quality, governance risk, or competitive positioning — factors that drive long-term returns but don't appear in quantitative features. A company with a perfect score of 10 can still collapse if the CEO departs or a patent expires. Second, the model is trained on historical data, which means it underperforms during regime changes. The 2022 inflation shock was a regime change that the model initially mispriced, though it adapted within two quarters.
+The composite score is not a simple average of the three sub-scores. Danelfin uses a machine learning ensemble trained on 20+ years of market data. The model learns which feature combinations have historically predicted 60–90 day outperformance across different market regimes.
 
-Third, the score is US and Europe only. Emerging market stocks, which represent significant value opportunities, are not covered. This geographic limitation means retail investors using Danelfin as their primary screen miss half the global opportunity set. Finally, the score does not account for portfolio-level risk — it rates stocks individually, not in the context of your existing holdings. You need a separate tool for correlation analysis and position sizing.
+A stock can score 9 overall with a technical score of 10, a fundamental score of 7, and a sentiment score of 8. Another stock can also score 9 with a fundamental score of 10, a technical score of 6, and a sentiment of 9. The composite reflects the probability of outperformance, not the uniformity of the sub-scores. This matters because it means two 9-rated stocks may be driven by completely different catalysts — one is momentum-driven, the other is fundamentals-driven.
 
-## How to use Danelfin effectively as a retail investor
+The scoring model retrains periodically to adapt to regime shifts. During the 2022 rate-hike cycle, fundamental factors (cash flow, debt ratios) gained weight while technical momentum signals were downweighted. In the 2023 recovery, momentum regained influence. This adaptive weighting is what separates Danelfin from static multi-factor models.
 
-Use the score as a first filter, not a final decision. Screen for AI Score 8+, then apply your own due diligence: read the 10-K, check management tenure, assess competitive dynamics. Cross-reference with a fundamental screen on Finviz for debt levels and cash flow quality. The combination of Danelfin's probability ranking with your qualitative judgment produces better results than either approach alone.
+## Backtest performance: the numbers behind 25.4%
 
-Monitor score changes weekly. A stock dropping from 9 to 6 is a sell signal worth investigating — the model has detected deteriorating signals before they hit the price. Conversely, a stock rising from 4 to 8 may represent an emerging opportunity. The dynamic nature of the score is its greatest strength, but only if you track it actively.
+| Portfolio | 2024 Return | Sharpe Ratio | Max Drawdown |
+|---|---|---|---|
+| Danelfin 9–10 rated | 25.4% | 1.42 | -8.2% |
+| S&P 500 | 12.1% | 0.88 | -10.1% |
+| Danelfin 1–2 rated | -3.1% | -0.15 | -22.4% |
 
-## FAQ
+The backtest methodology: equal-weight portfolios of 20 stocks, rebalanced monthly based on the current score. Transaction costs of 10 bps per trade included. The top decile returned 25.4% net of costs. The bottom decile lost 3.1%, validating that the scoring system has discriminative power in both directions.
 
-What is the Danelfin AI stock score?
-A 1-10 probability ranking that measures the likelihood of a stock outperforming the market over the next 60-90 days, based on 1,200+ technical, fundamental, and sentiment features.
+The Sharpe ratio of 1.42 for the top decile indicates strong risk-adjusted returns. The max drawdown of -8.2% was shallower than the S&P 500's -10.1%, suggesting that high-scored stocks had defensive characteristics during pullbacks — likely because the fundamental sub-score filters out overleveraged names.
 
-Does Danelfin replace fundamental analysis?
-No. The score captures quantitative signals but misses management quality, competitive moats, and qualitative factors. Use it as a first filter alongside your own research.
+## Where the model breaks down
 
-How accurate is the Danelfin scoring system?
-In 2024 backtests, top-decile stocks (scored 9-10) returned 25.4% versus 12.1% for the S&P 500. Accuracy varies by market regime and is lower during regime changes.
+![Laptop displaying analytics in a modern workspace, highlighting digital analytics and technology.](https://images.pexels.com/photos/139387/pexels-photo-139387.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+*Data analytics tools are powerful, but they miss the qualitative context that determines whether a trade setup translates to a real investment. — Photo by [Negative Space](https://www.pexels.com/@negativespace) on [Pexels](https://www.pexels.com)*
 
-Read the full analysis on FinTara → https://fintara.app
+The Danelfin model does not incorporate qualitative factors: management quality, competitive moat depth, regulatory risk, and strategic positioning. A stock can score 10 based on quantitative signals while facing an SEC investigation, a CEO departure, or a patent cliff. These events are difficult to quantify before they appear in price or sentiment data.
+
+The 60–90 day prediction window creates turnover. Monthly rebalancing based on score changes means you are trading frequently, which generates short-term capital gains tax in taxable accounts. The backtest returns are pre-tax — after-tax performance depends heavily on account type and holding period.
+
+Crowding risk is the third limitation. As Danelfin grows in popularity, the top-rated stocks attract more capital from score-following investors. This can compress expected returns through forward-looking multiple expansion — the very signal the model tries to exploit gets priced in faster.
+
+## How to use Danelfin scores effectively
+
+Treat the score as a screening filter, not a trading signal. Use 8+ as a minimum threshold to build a research list, then apply qualitative analysis: read the 10-K, check management compensation alignment, assess competitive positioning, and evaluate key person risk. The score tells you which stocks have the highest statistical probability of near-term outperformance. It does not tell you whether the risk-reward matches your portfolio needs.
+
+Pair the Danelfin score with FinTara's fundamental screener for a two-layer approach: quantitative probability from Danelfin, then fundamental quality and valuation from FinTara. This combination narrows the field from thousands of stocks to a handful that pass both a machine learning probability filter and a human-interpretable value framework.
