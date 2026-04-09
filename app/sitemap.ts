@@ -24,11 +24,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const hardcoded = BLOG_CONTENT[lang];
     const seen = new Set<string>();
 
-    // MDX posts
+    // MDX posts — canonical URL is /blog/{slug} (publisher route)
     for (const post of mdxPosts) {
       if (!seen.has(post.slug)) {
         seen.add(post.slug);
-        const prefix = lang === "en" ? "/posts" : "/es/posts";
+        const prefix = lang === "en" ? "/blog" : "/es/blog";
         blogPages.push({
           url: `${SITE_URL}${prefix}/${post.slug}`,
           lastModified: post.date ? new Date(post.date).toISOString() : now,
