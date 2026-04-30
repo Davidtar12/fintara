@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 
 import { BLOG_CONTENT, getPost } from "../../../blog-content";
 import { getMdxPost, getAllMdxPosts } from "../../../../lib/mdx";
+import { AuthorBio } from "../../../components/AuthorBio";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://fintara.app";
 
@@ -83,6 +84,7 @@ export default function PostPageEs({ params }: { params: { slug: string } }) {
           <article className="prose prose-lg prose-slate mt-12 max-w-none">
             <MDXRemote source={mdxPost.content} options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }} />
           </article>
+          <AuthorBio lang="es" />
         </main>
       </div>
     );
@@ -117,6 +119,7 @@ export default function PostPageEs({ params }: { params: { slug: string } }) {
             <p key={paragraph}>{paragraph}</p>
           ))}
         </article>
+        <AuthorBio lang="es" />
       </main>
     </div>
   );

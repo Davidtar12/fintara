@@ -6,6 +6,7 @@ import remarkGfm from "remark-gfm";
 
 import { BLOG_CONTENT, getPost } from "../../blog-content";
 import { getMdxPost, getAllMdxPosts } from "../../../lib/mdx";
+import { AuthorBio } from "../../components/AuthorBio";
 
 export async function generateMetadata({
   params,
@@ -132,6 +133,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
             />
           </article>
+          <AuthorBio lang="en" />
         </main>
       </div>
     );
@@ -166,6 +168,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
             <p key={paragraph}>{paragraph}</p>
           ))}
         </article>
+        <AuthorBio lang="en" />
       </main>
     </div>
   );

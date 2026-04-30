@@ -9,12 +9,12 @@ const nextConfig = {
     NEXT_PUBLIC_SITE_NAME: "FinTara",
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL || "https://fintara.app",
   },
-  // Consolidate duplicate routes — /posts/* was the legacy slug. /blog/* is canonical.
-  // Permanent 301 lets Google merge any old indexing into the new URL.
+  // EN has both /blog/* and /posts/* serving the same MDX. /blog/* is canonical.
+  // 301 from legacy /posts/* consolidates Google indexing into one URL.
+  // ES only has /es/posts/* — leave it alone.
   async redirects() {
     return [
       { source: "/posts/:slug", destination: "/blog/:slug", permanent: true },
-      { source: "/es/posts/:slug", destination: "/es/blog/:slug", permanent: true },
     ];
   },
 };
