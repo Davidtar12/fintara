@@ -42,7 +42,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     for (const post of hardcoded) {
       if (!seen.has(post.slug)) {
         seen.add(post.slug);
-        const prefix = lang === "en" ? "/posts" : "/es/posts";
+        const prefix = lang === "en" ? "/blog" : "/es/blog";
         blogPages.push({
           url: `${SITE_URL}${prefix}/${post.slug}`,
           lastModified: post.date ? new Date(post.date).toISOString() : now,
