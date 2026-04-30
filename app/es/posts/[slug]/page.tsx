@@ -46,7 +46,8 @@ function PostHeader({ category, title, date, readTime, excerpt, isPlaceholder }:
     <>
       <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#2e8b57]">{category}</p>
       <h1 className="mt-4 text-5xl leading-tight">{title}</h1>
-      <div className="mt-5 flex gap-4 text-sm text-slate-400">
+      <div className="mt-5 flex flex-wrap items-center gap-4 text-sm text-slate-400">
+        <span className="font-semibold text-slate-600">Por David Tarazona</span>
         <span>{date}</span>
         <span>{readTime}</span>
         {isPlaceholder && <span>Borrador placeholder</span>}
