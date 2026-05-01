@@ -16,6 +16,9 @@ export async function generateMetadata({
   const mdxPost = getMdxPost("en", params.slug);
   if (!mdxPost) return {};
 
+  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://fintara.app";
+  const dateIso = mdxPost.date ? new Date(mdxPost.date).toISOString() : undefined;
+
   return {
     title: mdxPost.title,
     description: mdxPost.excerpt,
@@ -24,6 +27,9 @@ export async function generateMetadata({
       title: mdxPost.title,
       description: mdxPost.excerpt,
       type: "article",
+      url: `${SITE_URL}/blog/${params.slug}`,
+      publishedTime: dateIso,
+      authors: ["David Tarazona"],
       ...(mdxPost.ogImage ? { images: [{ url: mdxPost.ogImage, width: 1200, height: 630 }] } : {}),
     },
     twitter: {
@@ -88,10 +94,29 @@ function AttributionLine({ attribution }: { attribution: string }) {
 }
 
 export default function BlogPostPage({ params }: { params: { slug: string } }) {
+  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://fintara.app";
   const mdxPost = getMdxPost("en", params.slug);
 
   if (mdxPost) {
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: mdxPost.title,
+      description: mdxPost.excerpt,
+      datePublished: mdxPost.date ? new Date(mdxPost.date).toISOString() : undefined,
+      dateModified: mdxPost.date ? new Date(mdxPost.date).toISOString() : undefined,
+      author: { "@type": "Person", name: "David Tarazona", url: "https://www.linkedin.com/in/davidtarazona/" },
+      publisher: { "@type": "Organization", name: "FinTara", url: SITE_URL },
+      url: `${SITE_URL}/blog/${params.slug}`,
+      ...(mdxPost.ogImage ? { image: mdxPost.ogImage } : {}),
+    };
+
     return (
+      <>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       <div className="min-h-screen text-slate-900">
         <header className="border-b border-[#d8cfbd]/80 bg-[#f4efe6]/92">
           <div className="mx-auto flex h-16 max-w-4xl items-center justify-between px-6">
@@ -137,6 +162,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           <AuthorBio lang="en" />
         </main>
       </div>
+      </>
     );
   }
 
