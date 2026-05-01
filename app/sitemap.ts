@@ -5,6 +5,15 @@ import { getAllMdxPosts } from "../lib/mdx";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://fintara.app";
 
+// Slugs that 301-redirect to a canonical — exclude from sitemap to avoid confusion
+const REDIRECTED_SLUGS = new Set([
+  "optimal-portfolio-rebalancing-frequency-strategy",
+  "optimal-portfolio-rebalancing-frequency-guide",
+  "optimal-portfolio-rebalancing-frequency-stocks",
+  "implementing-sector-rotation-strategy-etfs",
+  "build-dividend-etf-portfolio-strategy",
+]);
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date().toISOString();
 
@@ -26,7 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // MDX posts — canonical URL is /blog/{slug} (publisher route)
     for (const post of mdxPosts) {
-      if (!seen.has(post.slug)) {
+      if (!seen.has(post.slug) && !REDIRECTED_SLUGS.has(post.slug)) {
         seen.add(post.slug);
         const prefix = lang === "en" ? "/blog" : "/es/blog";
         blogPages.push({

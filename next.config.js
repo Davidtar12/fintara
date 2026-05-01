@@ -3,16 +3,15 @@ const nextConfig = {
   reactStrictMode: true,
   async redirects() {
     return [
-      {
-        source: "/posts/:slug",
-        destination: "/blog/:slug",
-        permanent: true,
-      },
-      {
-        source: "/es/posts/:slug",
-        destination: "/es/blog/:slug",
-        permanent: true,
-      },
+      // Legacy /posts/ → canonical /blog/
+      { source: "/posts/:slug", destination: "/blog/:slug", permanent: true },
+      { source: "/es/posts/:slug", destination: "/es/blog/:slug", permanent: true },
+      // Duplicate-content consolidation — 301 to canonical post per topic
+      { source: "/blog/optimal-portfolio-rebalancing-frequency-strategy", destination: "/blog/optimal-portfolio-rebalancing-frequency", permanent: true },
+      { source: "/blog/optimal-portfolio-rebalancing-frequency-guide", destination: "/blog/optimal-portfolio-rebalancing-frequency", permanent: true },
+      { source: "/blog/optimal-portfolio-rebalancing-frequency-stocks", destination: "/blog/optimal-portfolio-rebalancing-frequency", permanent: true },
+      { source: "/blog/implementing-sector-rotation-strategy-etfs", destination: "/blog/implementing-sector-rotation-strategy", permanent: true },
+      { source: "/blog/build-dividend-etf-portfolio-strategy", destination: "/blog/build-a-resilient-dividend-etf-portfolio", permanent: true },
     ];
   },
   images: {
@@ -22,14 +21,6 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_SITE_NAME: "FinTara",
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL || "https://fintara.app",
-  },
-  // EN has both /blog/* and /posts/* serving the same MDX. /blog/* is canonical.
-  // 301 from legacy /posts/* consolidates Google indexing into one URL.
-  // ES only has /es/posts/* — leave it alone.
-  async redirects() {
-    return [
-      { source: "/posts/:slug", destination: "/blog/:slug", permanent: true },
-    ];
   },
 };
 
