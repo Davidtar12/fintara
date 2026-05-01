@@ -38,6 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta name="p:domain_verify" content="68e4694ba440f4cb15aeca0ce0d01d87" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-JE3NFWFZKY" />
         <script
