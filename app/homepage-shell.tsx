@@ -322,7 +322,7 @@ export function HomePageShell({ language }: { language: Language }) {
             {content.featuredPosts.map((post) => (
               <Link
                 key={post.slug}
-                href={(isSpanish ? "/es/posts/" : "/posts/") + post.slug}
+                href={(isSpanish ? "/es/blog/" : "/blog/") + post.slug}
                 className="group rounded-[1.5rem] border border-[#ddd3c1] bg-[linear-gradient(180deg,_#fffdfa_0%,_#f8f3e9_100%)] p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
               >
                 <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#2e8b57]">

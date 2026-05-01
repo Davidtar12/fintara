@@ -29,7 +29,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     openGraph: {
       title: post.title,
       description: post.excerpt,
-      url: `${SITE_URL}/posts/${params.slug}`,
+      url: `${SITE_URL}/blog/${params.slug}`,
       type: "article",
       publishedTime: post.date ? new Date(post.date).toISOString() : undefined,
       authors: ["David Tarazona"],
