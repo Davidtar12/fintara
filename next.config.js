@@ -12,6 +12,8 @@ const nextConfig = {
       { source: "/blog/optimal-portfolio-rebalancing-frequency-stocks", destination: "/blog/optimal-portfolio-rebalancing-frequency", permanent: true },
       { source: "/blog/implementing-sector-rotation-strategy-etfs", destination: "/blog/implementing-sector-rotation-strategy", permanent: true },
       { source: "/blog/build-dividend-etf-portfolio-strategy", destination: "/blog/build-a-resilient-dividend-etf-portfolio", permanent: true },
+      // Pinterest pins pointing to posts that were generated but never published
+      { source: "/blog/which-sectors-outperform-in-q4-2024", destination: "/blog/implementing-sector-rotation-strategy", permanent: true },
     ];
   },
   images: {
