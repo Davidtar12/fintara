@@ -33,7 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const hardcoded = BLOG_CONTENT[lang];
     const seen = new Set<string>();
 
-    // MDX posts — canonical URL is /blog/{slug} (publisher route)
+    // MDX posts — EN canonical is /blog/{slug}, ES canonical is /es/blog/{slug}
     for (const post of mdxPosts) {
       if (!seen.has(post.slug) && !REDIRECTED_SLUGS.has(post.slug)) {
         seen.add(post.slug);

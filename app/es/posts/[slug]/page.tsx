@@ -26,11 +26,11 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   return {
     title: post.title,
     description: post.excerpt,
-    alternates: { canonical: `/es/posts/${params.slug}` },
+    alternates: { canonical: `/es/blog/${params.slug}` },
     openGraph: {
       title: post.title,
       description: post.excerpt,
-      url: `${SITE_URL}/es/posts/${params.slug}`,
+      url: `${SITE_URL}/es/blog/${params.slug}`,
       type: "article",
       locale: "es_ES",
       publishedTime: post.date ? new Date(post.date).toISOString() : undefined,
