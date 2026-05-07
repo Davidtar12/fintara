@@ -10,6 +10,7 @@ type PostItem = {
   excerpt: string;
   date: string;
   readTime: string;
+  coverImage?: string;
 };
 
 function BlogHeaderEs() {
@@ -38,6 +39,7 @@ export default function BlogPageEs() {
     excerpt: p.excerpt,
     date: p.date,
     readTime: p.readTime,
+    coverImage: p.coverImage || "",
   }));
 
   const mdx: PostItem[] = getAllMdxPosts("es");
@@ -69,17 +71,29 @@ export default function BlogPageEs() {
             <Link
               key={post.slug}
               href={`/es/blog/${post.slug}`}
-              className="group rounded-[1.5rem] border border-[#ddd3c1] bg-[linear-gradient(180deg,_#fffdfa_0%,_#f8f3e9_100%)] p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
+              className="group rounded-[1.5rem] border border-[#ddd3c1] bg-[linear-gradient(180deg,_#fffdfa_0%,_#f8f3e9_100%)] shadow-sm transition hover:-translate-y-1 hover:shadow-xl overflow-hidden"
             >
-              <div className="flex items-center justify-between gap-4">
-                <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#2e8b57]">{post.category}</p>
-                <p className="text-xs text-slate-400">{post.date}</p>
-              </div>
-              <h2 className="mt-4 text-3xl leading-tight group-hover:text-[#214236]">{post.title}</h2>
-              <p className="mt-4 text-sm leading-7 text-slate-600">{post.excerpt}</p>
-              <div className="mt-8 flex items-center justify-between text-sm font-medium text-slate-400">
-                <span>{post.readTime}</span>
-                <span className="text-[#2e8b57]">Leer artículo -&gt;</span>
+              {post.coverImage && (
+                <div className="h-44 w-full overflow-hidden">
+                  <img
+                    src={post.coverImage}
+                    alt={post.title}
+                    className="h-full w-full object-cover transition group-hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+              )}
+              <div className="p-8">
+                <div className="flex items-center justify-between gap-4">
+                  <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#2e8b57]">{post.category}</p>
+                  <p className="text-xs text-slate-400">{post.date}</p>
+                </div>
+                <h2 className="mt-4 text-3xl leading-tight group-hover:text-[#214236]">{post.title}</h2>
+                <p className="mt-4 text-sm leading-7 text-slate-600">{post.excerpt}</p>
+                <div className="mt-8 flex items-center justify-between text-sm font-medium text-slate-400">
+                  <span>{post.readTime}</span>
+                  <span className="text-[#2e8b57]">Leer artículo -&gt;</span>
+                </div>
               </div>
             </Link>
           ))}
