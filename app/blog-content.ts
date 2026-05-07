@@ -9,6 +9,8 @@ export type BlogPost = {
   date: string;
   readTime: string;
   body: string[];
+  coverImage?: string;
+  ogImage?: string;
 };
 
 export const BLOG_CONTENT: Record<Language, BlogPost[]> = {
@@ -69,6 +71,8 @@ export const BLOG_CONTENT: Record<Language, BlogPost[]> = {
       meta: "5 min de lectura",
       date: "18 mar 2026",
       readTime: "5 min de lectura",
+      coverImage: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
+      ogImage: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
       body: [
         "La baja de comisiones en ETF parece una buena noticia universal, pero el impacto real depende del tamaño del portafolio, del horizonte de inversión y del tipo de producto. No todo ahorro en fees cambia de verdad el resultado final.",
         "La pregunta correcta no es si pagar menos es mejor. Claro que lo es. La pregunta correcta es dónde la competencia en comisiones refleja eficiencia real y dónde funciona más como una maniobra comercial compensada por otros costos o por peor comportamiento del inversor.",
@@ -84,6 +88,8 @@ export const BLOG_CONTENT: Record<Language, BlogPost[]> = {
       meta: "7 min de lectura",
       date: "15 mar 2026",
       readTime: "7 min de lectura",
+      coverImage: "https://images.unsplash.com/photo-1642790106117-e829e14a795f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
+      ogImage: "https://images.unsplash.com/photo-1642790106117-e829e14a795f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
       body: [
         "A Interactive Brokers se le recomienda muchas veces como si el debate ya estuviera cerrado. No lo está. IBKR tiene ventajas claras, pero también tiene fricción, complejidad y una curva de aprendizaje que muchos subestiman.",
         "La ventaja real no es el logo ni la reputación. Es la infraestructura: acceso a mercados, calidad de ejecución, costos de financiamiento y herramientas pensadas para quien sí mira los detalles.",
@@ -99,6 +105,8 @@ export const BLOG_CONTENT: Record<Language, BlogPost[]> = {
       meta: "4 min de lectura",
       date: "11 mar 2026",
       readTime: "4 min de lectura",
+      coverImage: "https://images.unsplash.com/photo-1543286386-713bdd548da4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
+      ogImage: "https://images.unsplash.com/photo-1543286386-713bdd548da4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
       body: [
         "La mayoría del comentario macro llega tarde. Para cuando el consenso explica lo que pasó, el mercado ya ajustó precio y expectativas. Por eso importa más elegir bien las señales que sonar sofisticado contando la historia después.",
         "Hoy hay tres indicadores que merecen más atención: estrés de crédito en el margen, debilidad laboral debajo del titular y divergencias entre activos sensibles a tasas. El punto no es adivinar, sino leer tensiones antes de que se vuelvan obvias.",

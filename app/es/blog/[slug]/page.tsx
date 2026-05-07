@@ -173,6 +173,15 @@ export default function BlogPostPageEs({ params }: { params: { slug: string } })
           excerpt={post.excerpt}
           isPlaceholder={true}
         />
+        {post.coverImage && (
+          <figure className="mt-10">
+            <img
+              src={post.coverImage}
+              alt={post.title}
+              className="w-full rounded-2xl object-cover max-h-[480px]"
+            />
+          </figure>
+        )}
         <article className="mt-12 space-y-6 text-lg leading-8 text-slate-700">
           {post.body.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
