@@ -33,6 +33,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
       type: "article",
       publishedTime: post.date ? new Date(post.date).toISOString() : undefined,
       authors: ["David Tarazona"],
+      images: mdxPost?.ogImage ? [{ url: mdxPost.ogImage, width: 1200, height: 630 }] : undefined,
     },
   };
 }
@@ -79,6 +80,15 @@ export default function PostPage({ params }: { params: { slug: string } }) {
             excerpt={mdxPost.excerpt}
             isPlaceholder={false}
           />
+          {mdxPost.coverImage && (
+            <div className="mt-10 overflow-hidden rounded-xl">
+              <img
+                src={mdxPost.coverImage}
+                alt={mdxPost.title}
+                className="w-full object-cover"
+              />
+            </div>
+          )}
           <article className="prose prose-lg prose-slate mt-12 max-w-none">
             <MDXRemote source={mdxPost.content} options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }} />
           </article>
