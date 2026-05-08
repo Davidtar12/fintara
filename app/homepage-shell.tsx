@@ -244,9 +244,9 @@ export function HomePageShell({ language }: { language: Language }) {
               <div className="max-w-3xl">
                 <FinTaraWordmark />
               </div>
-              <p className="mt-8 max-w-2xl text-xl font-medium leading-9 text-slate-200 md:text-2xl">
+              <h1 className="mt-8 max-w-2xl text-xl font-medium leading-9 text-slate-200 md:text-2xl">
                 {content.heroStatement}
-              </p>
+              </h1>
               <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">
                 {content.heroBody}
               </p>
