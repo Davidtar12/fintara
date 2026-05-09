@@ -12,6 +12,7 @@ const nextConfig = {
       { source: "/blog/optimal-portfolio-rebalancing-frequency-stocks", destination: "/blog/optimal-portfolio-rebalancing-frequency", permanent: true },
       { source: "/blog/implementing-sector-rotation-strategy-etfs", destination: "/blog/implementing-sector-rotation-strategy", permanent: true },
       { source: "/blog/build-dividend-etf-portfolio-strategy", destination: "/blog/build-a-resilient-dividend-etf-portfolio", permanent: true },
+      { source: "/es/blog/small-caps-don-t-pay-you-extra-for-risk-here-s-why", destination: "/es/blog/las-small-caps-no-te-pagan-extra-por-el-riesgo-aqui-esta-el-porque", permanent: true },
       // Pinterest pins pointing to posts that were generated but never published
       { source: "/blog/which-sectors-outperform-in-q4-2024", destination: "/blog/implementing-sector-rotation-strategy", permanent: true },
     ];
