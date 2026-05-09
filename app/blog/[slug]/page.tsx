@@ -55,6 +55,7 @@ function PostHeader({
   date,
   readTime,
   excerpt,
+  excerptMarkdown,
   isPlaceholder,
 }: {
   category: string;
@@ -62,6 +63,7 @@ function PostHeader({
   date: string;
   readTime: string;
   excerpt: string;
+  excerptMarkdown?: string;
   isPlaceholder: boolean;
 }) {
   return (
@@ -74,7 +76,13 @@ function PostHeader({
         <span>{readTime}</span>
         {isPlaceholder && <span>Placeholder draft</span>}
       </div>
-      <p className="mt-8 text-xl leading-9 text-slate-600">{excerpt}</p>
+      {excerptMarkdown ? (
+        <div className="prose prose-lg prose-slate mt-8 max-w-none text-slate-600 prose-p:my-0">
+          <MDXRemote source={excerptMarkdown} options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }} />
+        </div>
+      ) : (
+        <p className="mt-8 text-xl leading-9 text-slate-600">{excerpt}</p>
+      )}
     </>
   );
 }
@@ -135,6 +143,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
             date={mdxPost.date}
             readTime={mdxPost.readTime}
             excerpt={mdxPost.excerpt}
+            excerptMarkdown={mdxPost.excerptMarkdown}
             isPlaceholder={false}
           />
           {mdxPost.coverImage && (

@@ -9,6 +9,7 @@ export type MdxMeta = {
   category: string;
   title: string;
   excerpt: string;
+  excerptMarkdown?: string;
   date: string;
   readTime: string;
   coverImage?: string;
@@ -20,6 +21,19 @@ export type MdxPost = MdxMeta & {
   content: string;
 };
 
+function toPlainExcerpt(value: unknown): string {
+  const text = String(value || "");
+  return text
+    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, "$1")
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1")
+    .replace(/(`+)(.*?)\1/g, "$2")
+    .replace(/(\*\*|__)(.*?)\1/g, "$2")
+    .replace(/(\*|_)(.*?)\1/g, "$2")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 /**
  * Get a single MDX post by language and slug.
  * Returns null if the file does not exist.
@@ -30,12 +44,14 @@ export function getMdxPost(lang: string, slug: string): MdxPost | null {
 
   const raw = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(raw);
+  const excerptMarkdown = String(data.excerpt || "");
 
   return {
     slug,
     category: data.category || "",
     title: data.title || "",
-    excerpt: data.excerpt || "",
+    excerpt: toPlainExcerpt(excerptMarkdown),
+    excerptMarkdown,
     date: data.date || "",
     readTime: data.readTime || "",
     coverImage: data.coverImage || "",
@@ -60,11 +76,13 @@ export function getAllMdxPosts(lang: string): MdxMeta[] {
       const slug = f.replace(/\.mdx$/, "");
       const raw = fs.readFileSync(path.join(dir, f), "utf-8");
       const { data } = matter(raw);
+      const excerptMarkdown = String(data.excerpt || "");
       return {
         slug,
         category: data.category || "",
         title: data.title || "",
-        excerpt: data.excerpt || "",
+        excerpt: toPlainExcerpt(excerptMarkdown),
+        excerptMarkdown,
         date: data.date || "",
         readTime: data.readTime || "",
         coverImage: data.coverImage || "",

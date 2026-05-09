@@ -48,8 +48,8 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   };
 }
 
-function PostHeader({ category, title, date, readTime, excerpt, isPlaceholder }: {
-  category: string; title: string; date: string; readTime: string; excerpt: string; isPlaceholder: boolean;
+function PostHeader({ category, title, date, readTime, excerpt, excerptMarkdown, isPlaceholder }: {
+  category: string; title: string; date: string; readTime: string; excerpt: string; excerptMarkdown?: string; isPlaceholder: boolean;
 }) {
   return (
     <>
@@ -61,7 +61,13 @@ function PostHeader({ category, title, date, readTime, excerpt, isPlaceholder }:
         <span>{readTime}</span>
         {isPlaceholder && <span>Borrador placeholder</span>}
       </div>
-      <p className="mt-8 text-xl leading-9 text-slate-600">{excerpt}</p>
+      {excerptMarkdown ? (
+        <div className="prose prose-lg prose-slate mt-8 max-w-none text-slate-600 prose-p:my-0">
+          <MDXRemote source={excerptMarkdown} options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }} />
+        </div>
+      ) : (
+        <p className="mt-8 text-xl leading-9 text-slate-600">{excerpt}</p>
+      )}
     </>
   );
 }
@@ -121,6 +127,7 @@ export default function BlogPostPageEs({ params }: { params: { slug: string } })
               date={mdxPost.date}
               readTime={mdxPost.readTime}
               excerpt={mdxPost.excerpt}
+              excerptMarkdown={mdxPost.excerptMarkdown}
               isPlaceholder={false}
             />
             {mdxPost.coverImage && (
