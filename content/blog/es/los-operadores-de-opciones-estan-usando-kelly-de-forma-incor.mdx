@@ -1,0 +1,140 @@
+---
+title: "Los operadores de opciones están usando kelly de forma incorrecta: aquí está la solución"
+slug: "los-operadores-de-opciones-estan-usando-kelly-de-forma-incor"
+category: "Portfolio"
+excerpt: "Los traders de opciones que determinan el tamaño de sus posiciones por intuición dejan capital sobre la mesa — o revientan la cuenta. El Criterio de Kelly te da una fórmula para determinar qué fracción de tu cuenta arriesgar en cada operación, basada en tu ventaja y tu tasa de aciertos."
+date: "May 29, 2026"
+readTime: "7 min read"
+coverImage: "https://images.pexels.com/photos/31650949/pexels-photo-31650949.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+ogImage: "https://images.pexels.com/photos/31650949/pexels-photo-31650949.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+coverImageAttribution: "*El criterio de kelly transforma las probabilidades de apuesta en una estrategia disciplinada de dimensionamiento de posiciones para los operadores de opciones. \u2014 Foto de [Jakub Zerdzicki](https://www.pexels.com/@jakubzerdzicki) en [Pexels](https://www.pexels.com)*"
+---
+
+Los traders de opciones que determinan el tamaño de sus posiciones por intuición dejan capital sobre la mesa — o revientan la cuenta. El Criterio de Kelly te da una fórmula para determinar qué fracción de tu cuenta arriesgar en cada operación, basada en tu ventaja y tu tasa de aciertos. Esta guía explica cómo funciona, por qué el Kelly completo es peligroso en opciones, y los ajustes prácticos que lo hacen utilizable. Calcula entre 20 y 30 minutos para trabajar la matemática con tus propias posiciones.
+
+## Lo que necesitas antes de empezar
+
+Antes de aplicar Kelly a operaciones de opciones, ten esto listo:
+
+- Tu **tasa histórica de aciertos** — el porcentaje de operaciones que cerraron con ganancia. Obtén esto de al menos 30 operaciones cerradas en tu diario de trading.
+- Tu **ganancia promedio** y tu **pérdida promedio** — en términos de dólares o como porcentaje de la posición.
+- Una calculadora o hoja de cálculo. Kelly implica aritmética sencilla, pero los errores en los datos de entrada arruinan el resultado.
+- Una definición clara de "una operación" — un contrato de opciones, un spread, una posición sobre el activo subyacente. Kelly se descompone cuando lo aplicas de forma inconsistente.
+
+Los datos verificados son limitados aquí, así que los números que aportes de tu propio historial de operaciones tienen todo el peso. Basura entra, basura sale.
+
+## Pasó 1 — entiende la fórmula de kelly antes de abrir una posición
+
+![Vista cercana de una mano usando una laptop para analizar el mercado de valores en una oficina.](https://images.pexels.com/photos/6172578/pexels-photo-6172578.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+*La fórmula calcula la fracción óptima de capital a arriesgar en cada operación. — Foto de [RDNE Stock project](https://www.pexels.com/@rdne) en [Pexels](https://www.pexels.com)*
+
+El Criterio de Kelly produce un número: la fracción de tu capital que debes asignar a una sola operación.
+
+La fórmula: **f = (bp − q) / b**
+
+Donde:
+- **f** = fracción de capital a apostar
+- **b** = cuota neta recibida (ganancia promedio dividida entre pérdida promedio)
+- **p** = probabilidad de ganar (tu tasa de aciertos en decimal)
+- **q** = probabilidad de perder (1 − p)
+
+Ejemplo: supón que tu tasa de aciertos es del 55% y que tu ganancia promedio es igual a tu pérdida promedio. Entonces b = 1, p = 0.55, q = 0.45. Kelly da f = (1 × 0.55 − 0.45) / 1 = 0.10. Arriesga el 10% del capital por operación.
+
+Este resultado asume que conoces tu ventaja con precisión. Los traders de opciones casi nunca la conocen.
+
+## Pasó 2 — ajusta la fórmula para las estructuras de pago específicas de las opciones
+
+![Fotografía en foco selectivo de una gráfica](https://images.unsplash.com/photo-1535320903710-d993d3d77d29?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDAyMzJ8MHwxfHNlYXJjaHwyfHx0cmFkZXIlMjBhbmFseXppbmclMjBvcHRpb25zJTIwZm9ybXVsYSUyMG9uJTIwbGFwdG9wJTIwd2l0aCUyMGdyYXBoc3xlbnwwfDB8fHwxNzgwMDc2MzE4fDA&ixlib=rb-4.1.0&q=80&w=1080)
+*El tamaño de posición es la diferencia entre el crecimiento sostenible y la ruina en mercados volátiles. — Foto de [m.](https://unsplash.com/@m_____me) en [Unsplash](https://www.unsplash.com)*
+
+El Kelly estándar asume pagos fijos y simétricos. Las opciones no funcionan así.
+
+Una call larga puede rendir el 200% o expirar en cero. Una call cubierta limita tu ganancia máxima pero captura la prima sin importar qué. Estas estructuras de pago asimétricas hacen necesario modificar la fórmula estándar.
+
+Para **spreads de opciones con riesgo definido** (spreads verticales, iron condors), usa:
+- **b** = ganancia máxima / pérdida máxima del spread
+- **p** = tu tasa histórica de aciertos en esa estrategia específica
+
+Para **opciones largas desnudas**, la pérdida promedio suele ser el 100% de la prima pagada y la ganancia promedio varía enormemente. Aplica Kelly a tu ganancia realizada promedio, no al máximo teórico. Usar el máximo teórico infla b artificialmente y te indica apostar mucho más de lo que es seguro.
+
+Para **estrategias de prima corta** (venta de puts, venta de calls), el pago es inverso — ganancias pequeñas y frecuentes, con pérdidas ocasionales grandes. En estos casos Kelly frecuentemente produce una f muy pequeña, a veces entre el 2% y el 5% del capital. Esa contención es la fórmula funcionando correctamente, no una falla.
+
+## Pasó 3 — aplica el kelly fraccionado para limitar el tamaño de posición
+
+![Dos hombres de negocios revisando datos financieros en una laptop en interiores, analizando tendencias del mercado.](https://images.pexels.com/photos/5833230/pexels-photo-5833230.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+*Trader calcula el Criterio de Kelly en una laptop con gráficas de opciones en una oficina — Foto de [AlphaTradeZone](https://www.pexels.com/@alphatradezone) en [Pexels](https://www.pexels.com)*
+
+El Kelly completo es agresivo. Maximiza el crecimiento geométrico a largo plazo, pero los drawdowns que genera en el camino son tan severos que la mayoría de los traders abandona la estrategia antes de que rinda frutos.
+
+La solución: **medio Kelly o un cuarto de Kelly**.
+
+Divide el resultado de Kelly entre 2 (o entre 4). Si la fórmula dice 10%, dimensiona la posición al 5%. Los patrones históricos en el mundo del juego y el trading indican que el medio Kelly reduce significativamente la volatilidad del drawdown mientras conserva la mayor parte del beneficio de crecimiento a largo plazo. El balance exacto depende de la calidad de tu ventaja — pero para traders minoristas de opciones cuyas estimaciones de tasa de aciertos tienen margen de error, el medio Kelly es un punto de partida razonable.
+
+El cuarto de Kelly tiene sentido cuando:
+- Tienes menos de 50 operaciones cerradas para estimar la tasa de aciertos
+- Estás operando una estrategia nueva sin historial de desempeño propio
+- El activo subyacente es especialmente volátil (p. ej., opciones sobre acciones individuales cerca de resultados trimestrales)
+
+Piensa en el Kelly fraccionado como un ajuste de confianza. No estás diciendo que tu ventaja es menor. Estás reconociendo que tu medición de esa ventaja podría estar equivocada.
+
+## Pasó 4 — recalcula después de cada cambió significativo en tu ventaja
+
+Kelly no es un cálculo de una sola vez. Tu tasa de aciertos varía. Los regímenes de mercado cambian. Una estrategia que funcionó de forma consistente en períodos de baja volatilidad puede rendir por debajo en entornos volátiles.
+
+Recalcula tu fracción de Kelly cuando:
+- Hayas sumado 20 o más operaciones cerradas a tu muestra
+- Hayas modificado tus criterios de entrada o salida
+- Tu tasa de aciertos haya variado más de 5 puntos porcentuales en cualquier dirección
+- Hayas cambiado los activos subyacentes o los marcos temporales
+
+Trata tu número de Kelly como una estimación viva, no como una regla fija. Los traders que lo calculan una vez y lo olvidan están aplicando datos de ventaja de 2022 a las condiciones de mercado de 2026. La fórmula solo es tan actual como sus datos de entrada.
+
+## Errores comunes que debes evitar
+
+**Error 1: Usar el valor teórico de la opción en lugar de las ganancias realizadas promedio**
+
+Si tu estrategia de calls largas tiene una ganancia máxima teórica del 400%, usar b = 4 en la fórmula produce un tamaño de posición absurdamente grande. Lo que importa es tu ganancia realizada promedio en operaciones cerradas. Para la mayoría de los traders minoristas de opciones, las ganancias realizadas promedio son mucho menores que los máximos teóricos. Usa el número real.
+
+**Error 2: Aplicar una sola fracción de Kelly a todas las estrategias**
+
+Tu tasa de aciertos en iron condors y tu tasa de aciertos en calls largas de momentum son completamente distintas. Requieren cálculos de Kelly separados. Combinarlas en una sola regla de dimensionamiento produce un número incorrecto para ambas estrategias al mismo tiempo. Mantén diarios separados y estimaciones de Kelly separadas por estrategia.
+
+**Error 3: Ignorar la correlación entre posiciones abiertas**
+
+Kelly asume apuestas independientes. Las posiciones en opciones sobre NVDA, AMD y SMCI durante una caída del sector de semiconductores no son independientes — se mueven juntas. Cuando tienes posiciones correlacionadas, la fracción de Kelly efectiva para tu libro total debe ser menor que la suma de los tamaños individuales de posición. <a href="/practical-allocation-for-retail-investors">la asignación práctica para inversores minoristas</a> profundiza en la lógica de asignación detrás de esto. Mantener posiciones dimensionadas como si fueran no correlacionadas en activos correlacionados concentra el riesgo de maneras que la fórmula nunca fue diseñada para manejar.
+
+## Qué sigue después de completar esto
+
+Kelly te da el tamaño de posición. No te dice cuándo entrar, qué opciones comprar, ni cómo gestionar una operación abierta. Esas son decisiones separadas.
+
+Una vez que tengas tu fracción de Kelly definida, el siguiente nivel es verificar que tu exposición total abierta se mantenga dentro de los límites — no solo por operación, sino en todo el libro. Si el medio Kelly indica el 5% por operación y tienes seis posiciones abiertas en nombres tecnológicos correlacionados, tu exposición efectiva no es el 30% — es mayor, dependiendo de cómo se muevan esas posiciones en conjunto.
+
+Revisa tu muestra de tasa de aciertos con regularidad. Treinta operaciones es el mínimo para que cualquier estimación tenga sentido. Cien te dan algo más confiable. La fórmula es matemáticamente sólida. Los datos de entrada son lo que hace fallar a la mayoría de los traders.
+
+---
+
+## Preguntas frecuentes
+
+### ¿Funciona el criterio de kelly para estrategias cortas de opciones como la venta de puts?
+
+Sí, pero la fórmula arroja una f pequeña — frecuentemente entre el 2% y el 5% del capital. Las estrategias de prima corta tienen tasas de aciertos altas pero pérdidas ocasionales grandes. Kelly restringe correctamente el tamaño de posición cuando la magnitud de la pérdida supera con creces la ganancia típica. Eso es la fórmula haciendo su trabajo, no una señal de que sea inadecuada para este tipo de estrategia.
+
+### ¿Qué tasa de aciertos necesito para que kelly produzca un tamaño de posición positivo?
+
+Kelly produce una f positiva únicamente cuando tienes una ventaja genuina — cuando bp > q. Con tamaños iguales de ganancia y pérdida (b = 1), necesitas una tasa de aciertos superior al 50%. Con una relación ganancia/pérdida de 2:1, solo necesitas alrededor del 33% de aciertos. Por debajo de esos umbrales, Kelly te indica correctamente que no operes.
+
+### ¿Puedo usar el criterio de kelly con opciones semanales?
+
+Sí, pero con precaución. Las opciones semanales amplifican tanto el error de estimación de la tasa de aciertos como los efectos del decaimiento por theta. Con períodos de tenencia cortos, tu relación ganancia/pérdida realizada puede variar drásticamente de semana en semana. Usa al menos 50 operaciones cerradas de opciones semanales antes de confiar en tu estimación de Kelly, y aplica el cuarto de Kelly hasta que la muestra sea mayor.
+
+### ¿En qué se diferencia el criterio de kelly del dimensionamiento de posición fraccionado fijo?
+
+El fraccionado fijo (p. ej., arriesgar siempre el 2% por operación) ignora tu ventaja. Kelly ajusta la fracción según el tamaño real de tu ventaja. Una ventaja débil reduce tu apuesta de Kelly; una ventaja sólida la aumenta. El fraccionado fijo trata todas las operaciones de forma idéntica, lo cual es conveniente pero ineficiente — subdimensionas las buenas oportunidades y sobredimensionas las malas.
+
+### ¿Los traders de opciones profesionales usan el criterio de kelly?
+
+Algunos fondos cuantitativos aplican dimensionamiento derivado de Kelly, pero rara vez la fórmula completa. Con más frecuencia, los profesionales usan el Kelly fraccionado (la mitad o un cuarto) combinado con límites de riesgo a nivel de portafolio. Los traders individuales de opciones en firmas importantes suelen operar bajó límites estrictos de nocional o VaR que efectivamente limitan el tamaño de posición muy por debajo de lo que el Kelly completo permitiría. La matemática es respetada; el resultado completo rara vez se usa sin restricciones.
+
+### ¿Qué pasa si mi tasa de aciertos cambia significativamente después de haber dimensionado una posición?
+
+Kelly se aplica al dimensionamiento *antes de entrar* a la posición. Una vez que la posición está abierta, la gestionas con tus reglas de salida existentes — stop-loss, objetivos de ganancia, ajustes de delta. Recalcula Kelly para operaciones futuras usando datos actualizados de tasa de aciertos, no durante la operación. Cambiar el tamaño de posición a mitad de operación basándote en estimaciones actualizadas de Kelly introduce una categoría distinta de error.
