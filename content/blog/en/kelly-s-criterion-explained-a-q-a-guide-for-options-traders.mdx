@@ -1,0 +1,146 @@
+---
+title: "Options Traders Are Using Kelly Wrong—Here's the Fix"
+slug: "kelly-s-criterion-explained-a-q-a-guide-for-options-traders"
+category: "Portfolio"
+excerpt: "Options traders who size positions by feel leave capital on the table — or blow up. Kelly's Criterion gives you a formula to determine how much of your account to risk per trade, based on your edge and your win rate."
+date: "May 29, 2026"
+readTime: "6 min read"
+coverImage: "https://images.pexels.com/photos/31650949/pexels-photo-31650949.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+ogImage: "https://images.pexels.com/photos/31650949/pexels-photo-31650949.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+coverImageAttribution: "*Kelly's Criterion transforms gambling odds into a disciplined sizing strategy for options traders. \u2014 Photo by [Jakub Zerdzicki](https://www.pexels.com/@jakubzerdzicki) on [Pexels](https://www.pexels.com)*"
+---
+
+Options traders who size positions by feel leave capital on the table — or blow up. Kelly's Criterion gives you a formula to determine how much of your account to risk per trade, based on your edge and your win rate. This guide walks through how it works, why full Kelly is dangerous in options, and the practical adjustments that make it usable. Expect 20–30 minutes to work through the math on your own positions.
+
+## What you need before starting
+
+Before applying Kelly to options trades, have these ready:
+
+- Your **historical win rate** — the percentage of trades that closed profitable. Pull this from at least 30 closed trades in your trading journal.
+- Your **average win size** and **average loss size** — in dollar terms or as a percentage of the position.
+- A calculator or spreadsheet. Kelly involves simple arithmetic, but errors in the inputs destroy the output.
+- A clear definition of "one trade" — one options contract, one spread, one underlying position. Kelly breaks down when you apply it inconsistently.
+
+Sourced facts are limited here, so the numbers you supply from your own trade history carry all the weight. Garbage in, garbage out.
+
+## Step 1 — Understand the Kelly formula before touching a position
+
+![Close-up of hand using laptop for stock market analysis in office setting.](https://images.pexels.com/photos/6172578/pexels-photo-6172578.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+*The formula calculates the optimal fraction of capital to risk on each trade. — Photo by [RDNE Stock project](https://www.pexels.com/@rdne) on [Pexels](https://www.pexels.com)*
+
+
+
+Kelly's Criterion produces a number: the fraction of your capital to put on a single trade.
+
+The formula: **f = (bp − q) / b**
+
+Where:
+- **f** = fraction of capital to bet
+- **b** = net odds received (average win divided by average loss)
+- **p** = probability of winning (your win rate as a decimal)
+- **q** = probability of losing (1 − p)
+
+Example: suppose your win rate is 55% and your average win is equal to your average loss. Then b = 1, p = 0.55, q = 0.45. Kelly gives f = (1 × 0.55 − 0.45) / 1 = 0.10. Risk 10% of capital per trade.
+
+This result assumes you know your edge precisely. Options traders almost never do.
+
+## Step 2 — Adjust the formula for options-specific payoff structures
+
+![selective focus photography of graph](https://images.unsplash.com/photo-1535320903710-d993d3d77d29?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDAyMzJ8MHwxfHNlYXJjaHwyfHx0cmFkZXIlMjBhbmFseXppbmclMjBvcHRpb25zJTIwZm9ybXVsYSUyMG9uJTIwbGFwdG9wJTIwd2l0aCUyMGdyYXBoc3xlbnwwfDB8fHwxNzgwMDc2MzE4fDA&ixlib=rb-4.1.0&q=80&w=1080)
+*Position sizing is the difference between sustainable growth and ruin in volatile markets. — Photo by [m.](https://unsplash.com/@m_____me) on [Unsplash](https://www.unsplash.com)*
+
+
+
+Standard Kelly assumes fixed, symmetrical payoffs. Options don't work that way.
+
+A long call can return 200% or expire at zero. A covered call caps your upside but takes in premium regardless. These asymmetric payoffs mean the standard formula requires modification.
+
+For **defined-risk options spreads** (vertical spreads, iron condors), use:
+- **b** = max profit / max loss on the spread
+- **p** = your historical win rate on that specific strategy
+
+For **naked long options**, the average loss is often 100% of premium paid and the average win varies wildly. Apply Kelly to your average realized win, not the theoretical maximum. Using theoretical max inflates b artificially and tells you to bet far more than is safe.
+
+For **short premium strategies** (selling puts, selling calls), the payoff is inverse — small frequent wins, occasional large losses. Kelly here often produces a very small f, sometimes 2–5% of capital. That restraint is the formula working correctly, not a flaw.
+
+## Step 3 — Apply fractional Kelly to cap position size
+
+![Two businessmen reviewing financial data on a laptop indoors, analyzing market trends.](https://images.pexels.com/photos/5833230/pexels-photo-5833230.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+*Trader calculates Kelly's Criterion on laptop with options charts in office — Photo by [AlphaTradeZone](https://www.pexels.com/@alphatradezone) on [Pexels](https://www.pexels.com)*
+
+
+
+Full Kelly is aggressive. It maximizes long-term geometric growth, but the drawdowns along the way are severe enough that most traders abandon the strategy before it pays off.
+
+The solution: **half Kelly or quarter Kelly**.
+
+Divide your Kelly output by 2 (or 4). If the formula says 10%, you size to 5%. Historical patterns across gambling and trading suggest half Kelly cuts drawdown volatility significantly while preserving most of the long-run growth benefit. The exact tradeoff depends on your edge quality — but for retail options traders whose win-rate estimates carry estimation error, half Kelly is a reasonable default.
+
+Quarter Kelly makes sense when:
+- You have fewer than 50 closed trades to estimate win rate
+- You're trading a new strategy with no personal performance history
+- The underlying is especially volatile (e.g., single-stock options around earnings)
+
+Think of fractional Kelly as a confidence adjustment. You're not saying your edge is smaller. You're accounting for the fact that your measurement of that edge might be off.
+
+## Step 4 — Recalculate after every meaningful change in your edge
+
+Kelly is not a one-time calculation. Your win rate drifts. Market regimes shift. A strategy that printed consistently in low-volatility periods may underperform in volatile ones.
+
+Recalculate your Kelly fraction whenever:
+- You've added 20 or more closed trades to your sample
+- You've changed your entry or exit criteria
+- Your win rate has moved more than 5 percentage points in either direction
+- You've switched underlying assets or timeframes
+
+Treat your Kelly number as a living estimate, not a fixed rule. Traders who set it once and forget it are applying 2022 edge data to 2026 market conditions. The formula is only as current as your inputs.
+
+## Common mistakes to avoid
+
+**Mistake 1: Using theoretical option value instead of realized average wins**
+
+If your long call strategy has a theoretical max gain of 400%, using b = 4 in the formula produces an absurdly large position size. What matters is your *realized* average gain across closed trades. For most retail options traders, realized average wins are much smaller than theoretical maximums. Use the real number.
+
+**Mistake 2: Applying one Kelly fraction across all strategies**
+
+Your iron condor win rate and your momentum long-call win rate are completely different. They require separate Kelly calculations. Blending them into a single position-sizing rule produces a number that is wrong for both strategies simultaneously. Keep separate journals and separate Kelly estimates per strategy.
+
+**Mistake 3: Ignoring correlation between open positions**
+
+Kelly assumes independent bets. Options positions on NVDA, AMD, and SMCI during a semiconductor selloff are not independent — they move together. When you're running correlated positions, the effective Kelly fraction for your total book should be smaller than the sum of individual position sizes. <a href="/practical-allocation-for-retail-investors">practical allocation for retail investors</a> covers the allocation logic behind this in more detail. Running uncorrelated-sized positions in correlated assets concentrates risk in ways the formula was never designed to handle.
+
+## What's next after completing this
+
+Kelly gives you position sizing. It doesn't tell you when to enter, which options to buy, or how to manage an open trade. Those are separate decisions.
+
+Once you have your Kelly fraction dialed in, the next layer is checking that your total open exposure stays within bounds — not just per trade, but across the book. If half-Kelly says 5% per trade and you're running six open positions on correlated tech names, your effective exposure is not 30% — it's higher, depending on how those positions move together.
+
+Review your win-rate sample regularly. Thirty trades is the minimum for any estimate to be meaningful. One hundred gives you something more reliable. The formula is mathematically sound. The inputs are what break most traders.
+
+---
+
+## FAQ
+
+### Does Kelly Criterion work for short options strategies like selling puts?
+
+Yes, but the formula outputs a small f — often 2–5% of capital. Short premium strategies have high win rates but large occasional losses. Kelly correctly restrains position size when the loss magnitude dwarfs the typical gain. That's the formula doing its job, not a sign it's wrong for this strategy type.
+
+### What win rate do I need for Kelly to produce a positive position size?
+
+Kelly produces a positive f only when you have a genuine edge — when bp > q. With equal win and loss sizes (b = 1), you need a win rate above 50%. With a 2:1 win-to-loss ratio, you only need about a 33% win rate. Below those thresholds, Kelly correctly tells you not to trade.
+
+### Can I use Kelly Criterion with weekly options?
+
+Yes, but tread carefully. Weekly options amplify both win rate estimation error and theta decay effects. With short holding periods, your realized win/loss ratio can vary sharply week to week. Use at least 50 closed weekly-option trades before trusting your Kelly estimate, and apply quarter Kelly until the sample is larger.
+
+### How does Kelly Criterion differ from fixed fractional position sizing?
+
+Fixed fractional (e.g., always risk 2% per trade) ignores your edge. Kelly adjusts the fraction based on how large your edge actually is. A weak edge shrinks your Kelly bet size; a strong edge expands it. Fixed fractional treats all trades identically, which is convenient but inefficient — you undersize good setups and oversize bad ones.
+
+### Is Kelly Criterion used by professional options traders?
+
+Some quantitative funds apply Kelly-derived sizing, but rarely the full formula. More commonly, professionals use fractional Kelly (half or quarter) combined with portfolio-level risk limits. Individual options traders at major firms typically operate under hard notional or VaR limits that effectively cap position size well below what full Kelly would allow. The math is respected; the full output is rarely trusted without constraints.
+
+### What if my win rate changes significantly after I've already sized a position?
+
+Kelly applies to *before-entry* sizing. Once a position is open, you manage it with your existing exit rules — stop-losses, profit targets, delta adjustments. Recalculate Kelly for future trades using updated win-rate data, not mid-trade. Changing position size mid-trade based on updated Kelly estimates introduces a different category of error.
