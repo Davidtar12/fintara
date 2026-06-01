@@ -1,0 +1,116 @@
+---
+title: "What Thinkorswim's Episodic Pivot Scan Settings Actually Do"
+slug: "thinkorswim-episodic-pivot-scan-settings"
+category: "Screening"
+excerpt: "Most tutorials show you which boxes to check in Thinkorswim. Few explain why those specific conditions matter — or when they produce noise instead of signal. An episodic pivot is a structural event: a stock breaking out of a long base on unusual volume, driven by a catalyst."
+date: "Jun 01, 2026"
+readTime: "6 min read"
+coverImage: "https://images.unsplash.com/photo-1614028674026-a65e31bfd27c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDAyMzJ8MHwxfHNlYXJjaHwyfHx0cmFkZXIlMjBhbmFseXppbmclMjBzdG9jayUyMGNoYXJ0JTIwb24lMjBsYXB0b3B8ZW58MHwwfHx8MTc4MDMxMjc3MHww&ixlib=rb-4.1.0&q=80&w=1080"
+ogImage: "https://images.unsplash.com/photo-1614028674026-a65e31bfd27c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDAyMzJ8MHwxfHNlYXJjaHwyfHx0cmFkZXIlMjBhbmFseXppbmclMjBzdG9jayUyMGNoYXJ0JTIwb24lMjBsYXB0b3B8ZW58MHwwfHx8MTc4MDMxMjc3MHww&ixlib=rb-4.1.0&q=80&w=1080"
+coverImageAttribution: "*The 2022 lesson: why episodic pivots filter noise better than momentum scans \u2014 Photo by [Tech Daily](https://unsplash.com/@techdailyca) on [Unsplash](https://www.unsplash.com)*"
+---
+
+Most tutorials show you which boxes to check in Thinkorswim. Few explain why those specific conditions matter — or when they produce noise instead of signal. An episodic pivot is a structural event: a stock breaking out of a long base on unusual volume, driven by a catalyst. The scan settings don't find the story. They filter for the conditions where stories historically produce tradeable price moves. That distinction changes how you build and use the scan.
+
+## Why Most Episodic Pivot Scans Return Garbage
+
+The default instinct is to scan for volume spikes and price breakouts simultaneously. That sounds right. In practice, it returns dozens of stocks that are spiking on thin bases, sector rotations, or index rebalancing — none of which is an episodic pivot.
+
+The problem is in the sequencing. An episodic pivot requires three things in order: a prior consolidation period, a catalytic event, and a volume-confirmed price break above a defined level. Most scans check the third condition only. They find the breakout but miss whether there was anything to break out of.
+
+A 52-week high scan combined with a volume surge filter is the most common version of this mistake. It catches stocks already in motion. The episodic pivot isn't primarily a momentum play — it's a structural change play. You want the moment the structure changes, not the moment price confirms what everyone already sees.
+
+Thinkorswim's scan engine is capable of filtering for consolidation depth and duration. Most users never configure it that way.
+
+## The Scan Logic Behind a Real Episodic Pivot Filter
+
+![Business professional reviewing financial documents with charts and graphs during a meeting.](https://images.pexels.com/photos/8730978/pexels-photo-8730978.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+*Most scan settings chase price; this structure waits for the catalyst to confirm — Photo by [Mikhail Nilov](https://www.pexels.com/@mikhail-nilov) on [Pexels](https://www.pexels.com)*
+
+
+
+Start with what you're actually looking for: a stock that has been quiet, then isn't.
+
+In Thinkorswim's Stock Hacker tab, the filter stack that approximates this has several layers. First, a price range filter to remove sub-$10 stocks and anything above a price point where institutional position-building is less likely to drive outsized percentage moves. Second, a volume condition — current day's volume relative to the 50-day average volume. The ratio matters more than the absolute number. A stock doing three times its average volume on a breakout day signals something different than a stock doing three times average volume because it's a low-liquidity name with erratic daily counts.
+
+Third, and often skipped: a consolidation condition. In ToS, this can be approximated using the difference between the 52-week high and the current price. A stock trading within a tight range near a prior resistance level, now breaking through, is a different setup than a stock in a general uptrend making another new high. The filter might require that the stock has spent a meaningful number of weeks within a defined percentage band — ToS thinkScript lets you build this condition using historical price comparisons across a lookback window.
+
+Fourth: the catalyst filter. This is where Thinkorswim's scanner has a real gap. The platform can flag earnings within a defined window, but it cannot score catalyst quality. A small-cap that beat earnings by a wide margin and raised guidance is categorically different from a large-cap that met consensus. Both show up in an "earnings within 3 days" filter. This is not a flaw you can fix inside the scanner — it's a flaw you resolve in your post-scan workflow.
+
+The scan finds candidates. Your job is to qualify them.
+
+## When the Episodic Pivot Setup Fails — Name the Conditions
+
+![A close-up view of a hand holding a pen and examining financial charts on paper.](https://images.pexels.com/photos/7054416/pexels-photo-7054416.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+*Reading volume and base breakout geometry turns a scanner from a toy into a tool — Photo by [Kindel Media](https://www.pexels.com/@kindelmedia) on [Pexels](https://www.pexels.com)*
+
+
+
+The episodic pivot logic breaks in three specific market conditions. Missing any of them costs real capital.
+
+**Broad market in distribution.** When the S&P 500 is in a confirmed downtrend — lower highs, declining breadth, elevated distribution days — individual episodic pivots have lower follow-through rates. A strong catalyst can produce a one-day gap up that reverses within a week as broader selling pressure returns. In Q1 2025 and again during the April 2025 tariff-driven selloff, stocks with legitimate fundamental pivots saw initial breakouts fail as macro pressure overwhelmed individual names. The scan will still find setups. They won't work as reliably.
+
+**Sector-wide headwinds against the catalyst.** An earnings beat from a semiconductor company during a period of broad chip sector compression will often produce a one-day reaction, then drift. The episodic pivot thesis requires the catalyst to reset the narrative for that specific stock. If the sector narrative hasn't changed, the price move is likely to revert rather than extend.
+
+**Low float, high short interest combinations.** These produce the most dangerous false positives. A heavily shorted low-float stock that gaps up on any catalyst will register an enormous volume surge and a clean price breakout. But the move is often driven by short covering, not genuine institutional buying. The extension after the first day is weaker, the volatility is higher, and the entries after the initial gap are treacherous. ToS scans cannot easily filter for short-interest data in real time. You need to check float and short interest manually before acting on any scan result in this category.
+
+**Gaps into extended intraday conditions.** A stock that gaps up 15% on open and continues running into the first hour has different risk parameters than one that gaps, consolidates for 30-60 minutes, and then breaks the intraday high. The scan runs pre-market and at open. By the time you're reading results, some names are already extended. Entry timing relative to the initial gap is a parameter the scan cannot give you — that's judgment applied after.
+
+## Building the Scan in Thinkorswim: Filters That Actually Narrow the List
+
+![Two professionals using a tablet and laptop to analyze market trends in a modern office setting.](https://images.pexels.com/photos/5833305/pexels-photo-5833305.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+*Trader evaluating episodic pivot scan conditions on screen — Photo by [AlphaTradeZone](https://www.pexels.com/@alphatradezone) on [Pexels](https://www.pexels.com)*
+
+
+
+Open Stock Hacker. Add filters in this order, and understand why each one is there.
+
+**Last price between $10 and $150.** Removes penny stocks (erratic volume data, illiquid executions) and very high-priced names where the percentage moves are smaller and position sizing gets complicated for smaller accounts.
+
+**Volume rate greater than 200% of 50-day average volume.** This is your primary episodic signal. "200%" here means today's volume is already running at more than double the 50-day average — with hours left in the session. By noon EST on the day of the scan, this is meaningful signal. Pre-market or at open, volume rate estimates are noisier; ToS calculates a projected volume rate, not actual, before session close.
+
+**Percent change from previous close greater than 5%.** Filters for actual price movement, not just volume. A 5% threshold removes most ordinary news-driven single-percent moves.
+
+**52-week high within 5% of current price.** Or alternatively: price within 3% above the 52-week high. This ensures the stock is in a breakout zone, not just bouncing from a deep decline.
+
+**Optional: Days since earnings between 0 and 3.** Narrows the list to recent catalyst events. Use this filter if you want to focus specifically on post-earnings episodic pivots. Remove it if you want broader catalyst coverage including analyst upgrades and sector events.
+
+The resulting list on any given trading day will vary significantly based on market conditions. In a strong tape with multiple earnings gaps, you might see a long list of candidates. In a quiet tape, a short one. Do not treat the list size as a proxy for opportunity quality.
+
+After the scan runs, your workflow matters more than the filters themselves. Sort by volume rate, not by price change. A stock with the largest volume surge relative to its own baseline is more likely to be experiencing a genuine structural event than a stock with the largest price move. Price move is visible to everyone. Volume rate relative to that stock's own history is more specific.
+
+Then check each candidate manually: What was the catalyst? Is the company in a sector with current institutional interest? Is the float large enough that the volume you're seeing likely represents real institutional positioning, not just retail and short-covering?
+
+The scan surfaces names. The checklist filters them. Using the scan output directly, without a post-scan qualification step, is where most traders who run these setups lose money.
+
+---
+
+## FAQ
+
+### What's the difference between an episodic pivot and a standard breakout scan?
+
+A standard breakout scan flags price crossing above a defined level. An episodic pivot scan requires a prior base structure plus a catalyst. The same price action without a consolidation period and a news event is just a trend continuation — different follow-through dynamics, different entry logic.
+
+### Can Thinkorswim scan for episodic pivots pre-market?
+
+ToS does run pre-market scans, but volume rate estimates before 9:30 AM EST are projections, not actuals. Pre-market volume can be misleading — a stock showing 10x volume at 7 AM may normalize by open. Run the scan again 30-60 minutes into the regular session for more reliable volume data.
+
+### Does the episodic pivot scan work on ETFs?
+
+Generally no. ETFs don't have earnings catalysts or individual news events that create structural pivots. Volume spikes in ETFs typically reflect sector rotation or macro events — different dynamics. This scan logic is designed for individual equities. Apply it to ETFs and the filter rationale stops making sense.
+
+### How often should the scan settings be updated?
+
+The core filter logic doesn't require frequent changes, but the volume threshold may need adjusting in high-volatility market regimes. During periods like April 2025, when broader market volume surged across the board, average volume baselines distort. A 200% filter that works well in normal conditions becomes noisy when daily volume is broadly elevated.
+
+### What's the minimum account size where this approach makes sense?
+
+Position sizing is the binding constraint. An episodic pivot entry often requires a stop placed below the day's low or the base breakout level — which can be 5-8% below entry on a gapping stock. With a $10,000 account and standard 1-2% risk-per-trade rules, that limits position size significantly. The scan works at any account size; the risk management math gets tighter below roughly $25,000.
+
+### Should the scan include stocks below the 200-day moving average?
+
+Experienced episodic pivot traders disagree on this. The argument for exclusion: stocks below the 200-day are in structural downtrends, and even strong catalysts often fail to reverse that. The argument for inclusion: the biggest episodic moves sometimes come from deeply depressed stocks where a genuine catalyst changes the fundamental picture. A reasonable starting rule is to exclude sub-200-day names and add them back only when the catalyst is specifically a business turnaround event.
+
+---
+
+The scan finds the candidates. Whether you act on them well depends on everything that happens after the results load.
