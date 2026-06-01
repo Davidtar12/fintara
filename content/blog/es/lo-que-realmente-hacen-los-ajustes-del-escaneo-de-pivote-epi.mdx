@@ -1,0 +1,106 @@
+---
+title: "Lo que realmente hacen los ajustes del escaneo de pivote episódico de thinkorswim"
+slug: "lo-que-realmente-hacen-los-ajustes-del-escaneo-de-pivote-epi"
+category: "Screening"
+excerpt: "La mayoría de los tutoriales te muestran qué casillas marcar en Thinkorswim. Pocos explican por qué esas condiciones específicas importan — o cuándo generan ruido en lugar de señal."
+date: "Jun 01, 2026"
+readTime: "8 min read"
+coverImage: "https://images.unsplash.com/photo-1614028674026-a65e31bfd27c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDAyMzJ8MHwxfHNlYXJjaHwyfHx0cmFkZXIlMjBhbmFseXppbmclMjBzdG9jayUyMGNoYXJ0JTIwb24lMjBsYXB0b3B8ZW58MHwwfHx8MTc4MDMxMjc3MHww&ixlib=rb-4.1.0&q=80&w=1080"
+ogImage: "https://images.unsplash.com/photo-1614028674026-a65e31bfd27c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDAyMzJ8MHwxfHNlYXJjaHwyfHx0cmFkZXIlMjBhbmFseXppbmclMjBzdG9jayUyMGNoYXJ0JTIwb24lMjBsYXB0b3B8ZW58MHwwfHx8MTc4MDMxMjc3MHww&ixlib=rb-4.1.0&q=80&w=1080"
+coverImageAttribution: "*La lecci\u00f3n de 2022: por qu\u00e9 los giros epis\u00f3dicos filtran el ruido mejor que los an\u00e1lisis de momento \u2014 Foto de [Tech Daily](https://unsplash.com/@techdailyca) en [Unsplash](https://www.unsplash.com)*"
+---
+
+La mayoría de los tutoriales te muestran qué casillas marcar en Thinkorswim. Pocos explican por qué esas condiciones específicas importan — o cuándo generan ruido en lugar de señal. Un pivote episódico es un evento estructural: una acción que rompe al alza desde una base prolongada con volumen inusual, impulsada por un catalizador. Los ajustes del scan no encuentran la historia. Filtran las condiciones en las que las historias históricamente producen movimientos de precio negociables. Esa distinción cambia cómo construyes y usas el scan.
+
+## Por qué la mayoría de los scans de pivote episódico devuelven resultados inútiles
+
+El instinto predeterminado es buscar picos de volumen y rupturas de precio simultáneamente. Suena lógico. En la práctica, devuelve docenas de acciones que están subiendo sobre bases débiles, rotaciones sectoriales o rebalanceos de índices — ninguno de los cuales es un pivote episódico.
+
+El problema está en la secuencia. Un pivote episódico requiere tres cosas en orden: un período de consolidación previo, un evento catalítico y una ruptura de precio confirmada por volumen por encima de un nivel definido. La mayoría de los scans solo verifican la tercera condición. Encuentran la ruptura pero ignoran si había algo de qué romper.
+
+Un scan de máximos de 52 semanas combinado con un filtro de aumentó de volumen es la versión más común de este error. Captura acciones que ya están en movimiento. El pivote episódico no es principalmente una operación de impulso — es una operación de cambió estructural. Quieres el momento en que la estructura cambia, no el momento en que el precio confirma lo que todos ya ven.
+
+El motor de scan de Thinkorswim es capaz de filtrar por profundidad y duración de la consolidación. La mayoría de los usuarios nunca lo configuran de esa manera.
+
+## La lógica del scan detrás de un filtro real de pivote episódico
+
+![Profesional de negocios revisando documentos financieros con gráficos durante una reunión.](https://images.pexels.com/photos/8730978/pexels-photo-8730978.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+*La mayoría de los ajustes del scan persiguen el precio; esta estructura espera a que el catalizador confirme — Foto de [Mikhail Nilov](https://www.pexels.com/@mikhail-nilov) en [Pexels](https://www.pexels.com)*
+
+Comienza con lo que realmente estás buscando: una acción que estuvo quieta, y de repente ya no lo está.
+
+En la pestaña Stock Hacker de Thinkorswim, el conjunto de filtros que se aproxima a esto tiene varias capas. Primero, un filtro de rango de precio para eliminar acciones por debajo de $10 y cualquier cosa por encima de un nivel de precio donde la acumulación de posiciones institucionales tiene menos probabilidad de generar movimientos porcentuales significativos. Segundo, una condición de volumen — el volumen del día actual en relación con el volumen promedio de 50 días. La proporción importa más que el número absoluto. Una acción que opera al triple de su volumen promedio en un día de ruptura señala algo diferente que una acción que opera al triple del promedio porque es un nombre de baja liquidez con conteos diarios erráticos.
+
+Tercero, y frecuentemente omitido: una condición de consolidación. En ToS, esto puede aproximarse usando la diferencia entre el máximo de 52 semanas y el precio actual. Una acción que opera dentro de un rango estrecho cerca de un nivel de resistencia previo, que ahora lo rompe, es una configuración diferente a una acción en tendencia alcista general que marca otro nuevo máximo. El filtro puede requerir que la acción haya pasado un número significativo de semanas dentro de una banda porcentual definida — thinkScript de ToS permite construir esta condición usando comparaciones de precios históricos a través de una ventana de retrospectiva.
+
+Cuarto: el filtro de catalizador. Aquí es donde el scanner de Thinkorswim tiene una brecha real. La plataforma puede marcar ganancias dentro de una ventana definida, pero no puede calificar la calidad del catalizador. Una empresa de baja capitalización que superó las ganancias por un amplio margen y elevó su guía es categóricamente diferente de una empresa de gran capitalización que cumplió con el consenso. Ambas aparecen en un filtro de "ganancias en los últimos 3 días". Esta no es una falla que puedas corregir dentro del scanner — es una falla que resuelves en tu flujo de trabajo posterior al scan.
+
+El scan encuentra candidatos. Tu trabajo es calificarlos.
+
+## Cuándo falla la configuración del pivote episódico — identifica las condiciones
+
+![Vista de cerca de una mano sosteniendo un bolígrafo y examinando gráficos financieros en papel.](https://images.pexels.com/photos/7054416/pexels-photo-7054416.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+*Leer el volumen y la geometría de la ruptura desde una base convierte al scanner de un juguete en una herramienta — Foto de [Kindel Media](https://www.pexels.com/@kindelmedia) en [Pexels](https://www.pexels.com)*
+
+La lógica del pivote episódico falla en tres condiciones de mercado específicas. Ignorar cualquiera de ellas cuesta capital real.
+
+**Mercado general en distribución.** Cuando el S&P 500 está en una tendencia bajista confirmada — máximos más bajos, amplitud de mercado en declive, días de distribución elevados — los pivotes episódicos individuales tienen tasas de seguimiento más bajas. Un catalizador fuerte puede producir un gap al alza de un día que revierte en una semana cuando regresa la presión vendedora más amplia. En el primer trimestre de 2025 y nuevamente durante la caída impulsada por los aranceles de abril de 2025, las acciones con pivotes fundamentales legítimos vieron fallar las rupturas iniciales cuando la presión macro superó los nombres individuales. El scan seguirá encontrando configuraciones. No funcionarán con la misma confiabilidad.
+
+**Vientos en contra sectoriales contra el catalizador.** Un informe de ganancias positivo de una empresa de semiconductores durante un período de compresión generalizada del sector de chips frecuentemente producirá una reacción de un día, seguida de una deriva a la baja. La tesis del pivote episódico requiere que el catalizador restablezca la narrativa para esa acción específica. Si la narrativa sectorial no ha cambiado, es probable que el movimiento de precio revierta en lugar de extenderse.
+
+**Combinaciones de flotación baja con alto interés corto.** Estas producen los falsos positivos más peligrosos. Una acción de baja flotación con alto interés corto que hace un gap al alza por cualquier catalizador registrará un enorme aumentó de volumen y una ruptura de precio limpia. Pero el movimiento frecuentemente está impulsado por el cierre de posiciones cortas (short covering), no por compras institucionales genuinas. La extensión después del primer día es más débil, la volatilidad es mayor, y las entradas después del gap inicial son peligrosas. Los scans de ToS no pueden filtrar fácilmente por datos de interés corto en tiempo real. Debes verificar la flotación y el interés corto manualmente antes de actuar sobre cualquier resultado del scan en esta categoría.
+
+**Gaps hacia condiciones intradía extendidas.** Una acción que hace un gap al alza del 15% en la apertura y continúa subiendo durante la primera hora tiene parámetros de riesgo diferentes a una que hace un gap, consolida durante 30-60 minutos y luego rompe el máximo intradía. El scan se ejecuta antes del mercado y en la apertura. Para cuando estás leyendo los resultados, algunos nombres ya están extendidos. El momento de entrada en relación con el gap inicial es un parámetro que el scan no puede darte — eso es criterio que se aplica después.
+
+## Cómo construir el scan en thinkorswim: filtros que realmente acortan la lista
+
+![Dos profesionales usando una tablet y una laptop para analizar tendencias de mercado en una oficina moderna.](https://images.pexels.com/photos/5833305/pexels-photo-5833305.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+*Trader evaluando las condiciones del scan de pivote episódico en pantalla — Foto de [AlphaTradeZone](https://www.pexels.com/@alphatradezone) en [Pexels](https://www.pexels.com)*
+
+Abre Stock Hacker. Agrega los filtros en este orden y comprende por qué cada uno está ahí.
+
+**Último precio entre $10 y $150.** Elimina las acciones de centavo (datos de volumen erráticos, ejecuciones ilíquidas) y los nombres de precio muy alto donde los movimientos porcentuales son menores y el dimensionamiento de posición se complica para cuentas más pequeñas.
+
+**Tasa de volumen superior al 200% del volumen promedio de 50 días.** Esta es tu señal episódica principal. "200%" aquí significa que el volumen de hoy ya está operando a más del doble del promedio de 50 días — con horas restantes en la sesión. Al mediodía hora del Este (EST) del día del scan, esto es una señal significativa. En el mercado previo a la apertura o en la apertura, las estimaciones de la tasa de volumen son más ruidosas; ToS calcula una tasa de volumen proyectada, no real, antes del cierre de la sesión.
+
+**Cambió porcentual respecto al cierre anterior superior al 5%.** Filtra por movimiento de precio real, no solo por volumen. Un umbral del 5% elimina la mayoría de los movimientos ordinarios de un solo porcentaje impulsados por noticias.
+
+**Máximo de 52 semanas dentro del 5% del precio actual.** O alternativamente: precio dentro del 3% por encima del máximo de 52 semanas. Esto asegura que la acción esté en zona de ruptura, no simplemente rebotando desde una caída profunda.
+
+**Opcional: Días desde ganancias entre 0 y 3.** Reduce la lista a eventos de catalizador recientes. Usa este filtro si quieres enfocarte específicamente en pivotes episódicos posteriores a ganancias. Elimínalo si quieres una cobertura de catalizador más amplia que incluya mejoras de analistas y eventos sectoriales.
+
+La lista resultante en cualquier día de operaciones variará significativamente según las condiciones del mercado. En una sesión fuerte con múltiples gaps por ganancias, podrías ver una lista larga de candidatos. En una sesión tranquila, una corta. No trates el tamaño de la lista como indicador de la calidad de las oportunidades.
+
+Después de que el scan se ejecute, tu flujo de trabajo importa más que los filtros en sí. Ordena por tasa de volumen, no por cambió de precio. Una acción con el mayor aumentó de volumen en relación con su propia línea base tiene más probabilidad de estar experimentando un evento estructural genuino que una acción con el mayor movimiento de precio. El movimiento de precio es visible para todos. La tasa de volumen en relación con la propia historia de esa acción es más específica.
+
+Luego verifica cada candidato manualmente: ¿Cuál fue el catalizador? ¿Está la empresa en un sector con interés institucional actual? ¿Es la flotación lo suficientemente grande como para que el volumen que estás viendo represente probablemente un posicionamiento institucional real, y no simplemente actividad minorista y cierre de posiciones cortas?
+
+El scan muestra los nombres. La lista de verificación los filtra. Usar el resultado del scan directamente, sin un pasó de calificación posterior al scan, es donde la mayoría de los traders que ejecutan estas configuraciones pierden dinero.
+
+---
+
+## Preguntas frecuentes
+
+### ¿Cuál es la diferencia entre un pivote episódico y un scan de ruptura estándar?
+
+Un scan de ruptura estándar marca el precio cruzando por encima de un nivel definido. Un scan de pivote episódico requiere una estructura de base previa más un catalizador. La misma acción de precio sin un período de consolidación y un evento de noticias es simplemente una continuación de tendencia — dinámicas de seguimiento diferentes, lógica de entrada diferente.
+
+### ¿Puede thinkorswim hacer scans de pivotes episódicos antes del mercado?
+
+ToS sí ejecuta scans antes del mercado, pero las estimaciones de la tasa de volumen antes de las 9:30 AM EST son proyecciones, no valores reales. El volumen previo a la apertura puede ser engañoso — una acción que muestra 10 veces el volumen a las 7 AM puede normalizarse para la apertura. Ejecuta el scan nuevamente 30-60 minutos después del inicio de la sesión regular para obtener datos de volumen más confiables.
+
+### ¿Funciona el scan de pivote episódico en ETFs?
+
+Generalmente no. Los ETFs no tienen catalizadores de ganancias ni eventos de noticias individuales que generen pivotes estructurales. Los picos de volumen en ETFs típicamente reflejan rotación sectorial o eventos macro — dinámicas diferentes. Esta lógica de scan está diseñada para acciones individuales. Aplícala a ETFs y la justificación del filtro deja de tener sentido.
+
+### ¿Con qué frecuencia deben actualizarse los ajustes del scan?
+
+La lógica del filtro central no requiere cambios frecuentes, pero el umbral de volumen puede necesitar ajuste en regímenes de mercado de alta volatilidad. Durante períodos como abril de 2025, cuando el volumen del mercado general aumentó considerablemente, las líneas base del volumen promedio se distorsionan. Un filtro del 200% que funciona bien en condiciones normales se vuelve ruidoso cuando el volumen diario está ampliamente elevado.
+
+### ¿Cuál es el tamaño mínimo de cuenta donde este enfoque tiene sentido?
+
+El dimensionamiento de posición es la restricción determinante. Una entrada de pivote episódico frecuentemente requiere un stop colocado por debajo del mínimo del día o del nivel de ruptura de la base — lo que puede ser un 5-8% por debajo de la entrada en una acción con gap. Con una cuenta de $10,000 y reglas estándar de riesgo del 1-2% por operación, eso limita significativamente el tamaño de la posición. El scan funciona con cualquier tamaño de cuenta; la matemática de gestión de riesgo se ajusta más por debajo de aproximadamente $25,000.
+
+### ¿Debe el scan incluir acciones por debajo de la media móvil de 200 días?
+
+Los traders experimentados de pivotes episódicos no están de acuerdo en esto. El argumento a favor de la exclusión: las acciones por debajo de los 200 días están en tendencias bajistas estructurales, y hasta los catalizadores fuertes frecuentemente no logran revertir eso. El argumento a favor de la inclusión: los mayores movimientos episódicos a veces provienen de acciones profundamente deprimidas donde un catalizador genuino cambia el panorama fundamental. Una regla de inicio razonable es excluir los nombres
