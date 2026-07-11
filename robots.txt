@@ -1,0 +1,53 @@
+---
+permalink: /robots.txt
+---
+User-agent: *
+Allow: /
+
+# Block wasteful URL patterns that consume crawl budget
+Disallow: /search
+Disallow: /search?
+Disallow: /page/
+Disallow: /tag/
+Disallow: /tags/
+Disallow: /category/
+Disallow: /categories/
+Disallow: /author/
+Disallow: /authors/
+Disallow: /feed/
+Disallow: /rss
+Disallow: /atom
+Disallow: /trackback
+Disallow: /feedburner
+Disallow: /wp-admin
+Disallow: /wp-login
+Disallow: /wp-content/themes
+Disallow: /cart
+Disallow: /checkout
+Disallow: /account
+Disallow: /login
+Disallow: /signup
+Disallow: /?s=
+Disallow: /?p=
+Disallow: /archives/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /drafts/
+Disallow: /preview/
+Disallow: /ghost/
+Disallow: /api/
+Disallow: /*.json$
+Disallow: /*?utm_
+Disallow: /*?ref=
+Disallow: /*?fbclid=
+Disallow: /*?gclid=
+
+# Allow major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Sitemap
+Sitemap: https://fintara.app/sitemap.xml
