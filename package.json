@@ -4,9 +4,10 @@
   "description": "FinTara - Personal Finance & Wealth Building Blog",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "python scripts/check_content_quality.py && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "content:check": "python scripts/check_content_quality.py"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.19",

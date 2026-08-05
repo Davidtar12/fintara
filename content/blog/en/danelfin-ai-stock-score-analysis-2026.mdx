@@ -7,7 +7,7 @@ date: "Apr 06, 2026"
 readTime: "5 min read"
 coverImage: "https://images.pexels.com/photos/8849295/pexels-photo-8849295.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
 ogImage: "https://images.pexels.com/photos/8849295/pexels-photo-8849295.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-coverImageAttribution: "*Abstract illustration of AI with silhouette head full of eyes, symbolizing observation and technology. — Photo by [Tara Winstead](https://www.pexels.com/@tara-winstead) on [Pexels](https://www.pexels.com)*"
+coverImageAttribution: "*Photo by [Tara Winstead](https://www.pexels.com/@tara-winstead) on [Pexels](https://www.pexels.com)*"
 ---
 
 Danelfin's AI engine processes 1,200+ features per stock every trading day and compresses them into a single 1–10 score. In 2024 backtests, portfolios built from 9- and 10-rated stocks returned 25.4% versus the S&P 500's 12.1%. The system works because it rank-orders probability of near-term outperformance — not value, not growth, not momentum alone, but the statistical intersection of all three. This article breaks down the engineering behind that score: the three feature pillars, the scoring methodology, weighting dynamics, and the specific conditions where the model excels or breaks down.
@@ -25,7 +25,7 @@ Danelfin organizes its 1,200+ features into three pillars: technical signals, fu
 ## How the 1–10 composite score is constructed
 
 ![A home office setup featuring multiple monitors displaying trading charts and data analysis.](https://images.pexels.com/photos/5833747/pexels-photo-5833747.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
-*A multi-monitor trading setup — the kind of data density that Danelfin's model processes automatically for every stock, every day. — Photo by [AlphaTradeZone](https://www.pexels.com/@alphatradezone) on [Pexels](https://www.pexels.com)*
+*Photo by [AlphaTradeZone](https://www.pexels.com/@alphatradezone) on [Pexels](https://www.pexels.com)*
 
 The composite score is not a simple average of the three sub-scores. Danelfin uses a machine learning ensemble trained on 20+ years of market data. The model learns which feature combinations have historically predicted 60–90 day outperformance across different market regimes.
 
@@ -48,7 +48,7 @@ The Sharpe ratio of 1.42 for the top decile indicates strong risk-adjusted retur
 ## Where the model breaks down
 
 ![Laptop displaying analytics in a modern workspace, highlighting digital analytics and technology.](https://images.pexels.com/photos/139387/pexels-photo-139387.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
-*Data analytics tools are powerful, but they miss the qualitative context that determines whether a trade setup translates to a real investment. — Photo by [Negative Space](https://www.pexels.com/@negativespace) on [Pexels](https://www.pexels.com)*
+*Photo by [Negative Space](https://www.pexels.com/@negativespace) on [Pexels](https://www.pexels.com)*
 
 The Danelfin model does not incorporate qualitative factors: management quality, competitive moat depth, regulatory risk, and strategic positioning. A stock can score 10 based on quantitative signals while facing an SEC investigation, a CEO departure, or a patent cliff. These events are difficult to quantify before they appear in price or sentiment data.
 
