@@ -7,6 +7,8 @@ import remarkGfm from "remark-gfm";
 import { BLOG_CONTENT, getPost } from "../../../blog-content";
 import { getMdxPost, getAllMdxPosts } from "../../../../lib/mdx";
 import { AuthorBio } from "../../../components/AuthorBio";
+import { ArticleJsonLd } from "../../../components/ArticleJsonLd";
+import { AttributionLine } from "../../../components/AttributionLine";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://fintara.app";
 
@@ -72,42 +74,19 @@ function PostHeader({ category, title, date, readTime, excerpt, excerptMarkdown,
   );
 }
 
-function AttributionLine({ attribution }: { attribution: string }) {
-  const html = attribution.replace(
-    /\[([^\]]+)\]\(([^)]+)\)/g,
-    '<a href="$2" target="_blank" rel="noopener noreferrer" class="underline">$1</a>'
-  );
-  return (
-    <p
-      className="mt-2 text-xs text-slate-400 text-right"
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
-  );
-}
-
 export default function BlogPostPageEs({ params }: { params: { slug: string } }) {
   const mdxPost = getMdxPost("es", params.slug);
 
   if (mdxPost) {
-    const jsonLd = {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      headline: mdxPost.title,
-      description: mdxPost.excerpt,
-      datePublished: mdxPost.date ? new Date(mdxPost.date).toISOString() : undefined,
-      dateModified: mdxPost.date ? new Date(mdxPost.date).toISOString() : undefined,
-      author: { "@type": "Person", name: "David Tarazona", url: "https://www.linkedin.com/in/davidtarazona/" },
-      publisher: { "@type": "Organization", name: "FinTara", url: SITE_URL },
-      url: `${SITE_URL}/es/blog/${params.slug}`,
-      inLanguage: "es",
-      ...(mdxPost.ogImage ? { image: mdxPost.ogImage } : {}),
-    };
-
     return (
       <>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        <ArticleJsonLd
+          description={mdxPost.excerpt}
+          image={mdxPost.ogImage}
+          inLanguage="es"
+          publishedAt={mdxPost.date}
+          title={mdxPost.title}
+          url={`${SITE_URL}/es/blog/${params.slug}`}
         />
         <div className="min-h-screen text-slate-900">
           <header className="border-b border-[#d8cfbd]/80 bg-[#f4efe6]/92">
@@ -160,7 +139,16 @@ export default function BlogPostPageEs({ params }: { params: { slug: string } })
   if (!post) notFound();
 
   return (
-    <div className="min-h-screen text-slate-900">
+    <>
+      <ArticleJsonLd
+        description={post.excerpt}
+        image={post.ogImage}
+        inLanguage="es"
+        publishedAt={post.date}
+        title={post.title}
+        url={`${SITE_URL}/es/blog/${params.slug}`}
+      />
+      <div className="min-h-screen text-slate-900">
       <header className="border-b border-[#d8cfbd]/80 bg-[#f4efe6]/92">
         <div className="mx-auto flex h-16 max-w-4xl items-center justify-between px-6">
           <Link href="/es/blog" className="brand-wordmark-inline" aria-label="FinTara logo">
@@ -187,6 +175,11 @@ export default function BlogPostPageEs({ params }: { params: { slug: string } })
               alt={post.title}
               className="w-full rounded-2xl object-cover max-h-[480px]"
             />
+            {post.coverImageAttribution && (
+              <figcaption>
+                <AttributionLine attribution={post.coverImageAttribution} />
+              </figcaption>
+            )}
           </figure>
         )}
         <article className="mt-12 space-y-6 text-lg leading-8 text-slate-700">
@@ -196,6 +189,7 @@ export default function BlogPostPageEs({ params }: { params: { slug: string } })
         </article>
         <AuthorBio lang="es" />
       </main>
-    </div>
+      </div>
+    </>
   );
 }

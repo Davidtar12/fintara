@@ -10,6 +10,7 @@ export type BlogPost = {
   readTime: string;
   body: string[];
   coverImage?: string;
+  coverImageAttribution?: string;
   ogImage?: string;
 };
 
@@ -25,6 +26,7 @@ export const BLOG_CONTENT: Record<Language, BlogPost[]> = {
       date: "Mar 18, 2026",
       readTime: "5 min read",
       coverImage: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
+      coverImageAttribution: "Photo from [Unsplash](https://unsplash.com)",
       ogImage: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
       body: [
         "ETF fee compression is one of those stories that sounds simple until you run the numbers. Yes, lower expense ratios matter. But they do not matter equally across portfolio sizes, holding periods, and product categories.",
@@ -42,6 +44,7 @@ export const BLOG_CONTENT: Record<Language, BlogPost[]> = {
       date: "Mar 15, 2026",
       readTime: "7 min read",
       coverImage: "https://images.unsplash.com/photo-1642790106117-e829e14a795f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
+      coverImageAttribution: "Photo from [Unsplash](https://unsplash.com)",
       ogImage: "https://images.unsplash.com/photo-1642790106117-e829e14a795f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
       body: [
         "Interactive Brokers is often recommended as if the case were closed. It is not. IBKR is powerful, but it comes with interface friction, setup complexity, and a learning curve that many investors underestimate.",
@@ -59,6 +62,7 @@ export const BLOG_CONTENT: Record<Language, BlogPost[]> = {
       date: "Mar 11, 2026",
       readTime: "4 min read",
       coverImage: "https://images.unsplash.com/photo-1543286386-713bdd548da4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
+      coverImageAttribution: "Photo from [Unsplash](https://unsplash.com)",
       ogImage: "https://images.unsplash.com/photo-1543286386-713bdd548da4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
       body: [
         "Most macro commentary arrives late. By the time the consensus explains what changed, the market has already repriced around the new story. That is why signal selection matters more than narrative fluency.",
@@ -78,6 +82,7 @@ export const BLOG_CONTENT: Record<Language, BlogPost[]> = {
       date: "18 mar 2026",
       readTime: "5 min de lectura",
       coverImage: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
+      coverImageAttribution: "Foto de [Unsplash](https://unsplash.com)",
       ogImage: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
       body: [
         "La baja de comisiones en ETF parece una buena noticia universal, pero el impacto real depende del tamaño del portafolio, del horizonte de inversión y del tipo de producto. No todo ahorro en fees cambia de verdad el resultado final.",
@@ -95,6 +100,7 @@ export const BLOG_CONTENT: Record<Language, BlogPost[]> = {
       date: "15 mar 2026",
       readTime: "7 min de lectura",
       coverImage: "https://images.unsplash.com/photo-1642790106117-e829e14a795f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
+      coverImageAttribution: "Foto de [Unsplash](https://unsplash.com)",
       ogImage: "https://images.unsplash.com/photo-1642790106117-e829e14a795f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
       body: [
         "A Interactive Brokers se le recomienda muchas veces como si el debate ya estuviera cerrado. No lo está. IBKR tiene ventajas claras, pero también tiene fricción, complejidad y una curva de aprendizaje que muchos subestiman.",
@@ -112,6 +118,7 @@ export const BLOG_CONTENT: Record<Language, BlogPost[]> = {
       date: "11 mar 2026",
       readTime: "4 min de lectura",
       coverImage: "https://images.unsplash.com/photo-1543286386-713bdd548da4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
+      coverImageAttribution: "Foto de [Unsplash](https://unsplash.com)",
       ogImage: "https://images.unsplash.com/photo-1543286386-713bdd548da4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
       body: [
         "La mayoría del comentario macro llega tarde. Para cuando el consenso explica lo que pasó, el mercado ya ajustó precio y expectativas. Por eso importa más elegir bien las señales que sonar sofisticado contando la historia después.",

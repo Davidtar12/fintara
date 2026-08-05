@@ -7,7 +7,8 @@
     "build": "python scripts/check_content_quality.py && next build",
     "start": "next start",
     "lint": "next lint",
-    "content:check": "python scripts/check_content_quality.py"
+    "content:check": "python scripts/check_content_quality.py",
+    "content:test": "python scripts/test_check_content_quality.py"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.19",

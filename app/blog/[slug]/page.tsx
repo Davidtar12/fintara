@@ -7,6 +7,10 @@ import remarkGfm from "remark-gfm";
 import { BLOG_CONTENT, getPost } from "../../blog-content";
 import { getMdxPost, getAllMdxPosts } from "../../../lib/mdx";
 import { AuthorBio } from "../../components/AuthorBio";
+import { ArticleJsonLd, toIsoDate } from "../../components/ArticleJsonLd";
+import { AttributionLine } from "../../components/AttributionLine";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://fintara.app";
 
 export async function generateMetadata({
   params,
@@ -14,29 +18,31 @@ export async function generateMetadata({
   params: { slug: string };
 }): Promise<Metadata> {
   const mdxPost = getMdxPost("en", params.slug);
-  if (!mdxPost) return {};
+  const post = mdxPost || getPost("en", params.slug);
+  if (!post) return {};
 
-  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://fintara.app";
-  const dateIso = mdxPost.date ? new Date(mdxPost.date).toISOString() : undefined;
+  const canonicalUrl = `${SITE_URL}/blog/${params.slug}`;
+  const dateIso = toIsoDate(post.date);
 
   return {
-    title: mdxPost.title,
-    description: mdxPost.excerpt,
-    alternates: { canonical: `/blog/${params.slug}` },
+    title: post.title,
+    description: post.excerpt,
+    alternates: { canonical: canonicalUrl },
     openGraph: {
-      title: mdxPost.title,
-      description: mdxPost.excerpt,
+      title: post.title,
+      description: post.excerpt,
       type: "article",
-      url: `${SITE_URL}/blog/${params.slug}`,
+      locale: "en_US",
+      url: canonicalUrl,
       publishedTime: dateIso,
       authors: ["David Tarazona"],
-      ...(mdxPost.ogImage ? { images: [{ url: mdxPost.ogImage, width: 1200, height: 630 }] } : {}),
+      ...(post.ogImage ? { images: [{ url: post.ogImage, width: 1200, height: 630 }] } : {}),
     },
     twitter: {
       card: "summary_large_image",
-      title: mdxPost.title,
-      description: mdxPost.excerpt,
-      ...(mdxPost.ogImage ? { images: [mdxPost.ogImage] } : {}),
+      title: post.title,
+      description: post.excerpt,
+      ...(post.ogImage ? { images: [post.ogImage] } : {}),
     },
   };
 }
@@ -87,90 +93,65 @@ function PostHeader({
   );
 }
 
-function AttributionLine({ attribution }: { attribution: string }) {
-  // Convert markdown links to HTML
-  const html = attribution.replace(
-    /\[([^\]]+)\]\(([^)]+)\)/g,
-    '<a href="$2" target="_blank" rel="noopener noreferrer" class="underline">$1</a>'
-  );
-  return (
-    <p
-      className="mt-2 text-xs text-slate-400 text-right"
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
-  );
-}
-
 export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://fintara.app";
   const mdxPost = getMdxPost("en", params.slug);
 
   if (mdxPost) {
-    const jsonLd = {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      headline: mdxPost.title,
-      description: mdxPost.excerpt,
-      datePublished: mdxPost.date ? new Date(mdxPost.date).toISOString() : undefined,
-      dateModified: mdxPost.date ? new Date(mdxPost.date).toISOString() : undefined,
-      author: { "@type": "Person", name: "David Tarazona", url: "https://www.linkedin.com/in/davidtarazona/" },
-      publisher: { "@type": "Organization", name: "FinTara", url: SITE_URL },
-      url: `${SITE_URL}/blog/${params.slug}`,
-      ...(mdxPost.ogImage ? { image: mdxPost.ogImage } : {}),
-    };
-
     return (
       <>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        <ArticleJsonLd
+          description={mdxPost.excerpt}
+          image={mdxPost.ogImage}
+          publishedAt={mdxPost.date}
+          title={mdxPost.title}
+          url={`${SITE_URL}/blog/${params.slug}`}
         />
-      <div className="min-h-screen text-slate-900">
-        <header className="border-b border-[#d8cfbd]/80 bg-[#f4efe6]/92">
-          <div className="mx-auto flex h-16 max-w-4xl items-center justify-between px-6">
-            <Link href="/blog" className="brand-wordmark-inline" aria-label="FinTara logo">
-              <span>FINTARA</span>
-            </Link>
-            <Link href="/blog" className="text-sm font-semibold text-[#214236] hover:text-[#173229]">
-              Back to articles
-            </Link>
-          </div>
-        </header>
-        <main className="mx-auto max-w-4xl px-6 py-16">
-          <PostHeader
-            category={mdxPost.category}
-            title={mdxPost.title}
-            date={mdxPost.date}
-            readTime={mdxPost.readTime}
-            excerpt={mdxPost.excerpt}
-            excerptMarkdown={mdxPost.excerptMarkdown}
-            isPlaceholder={false}
-          />
-          {mdxPost.coverImage && (
-            <figure className="mt-10">
-              <img
-                src={mdxPost.coverImage}
-                alt={mdxPost.title}
-                className="w-full rounded-2xl object-cover max-h-[480px]"
-              />
-              {mdxPost.coverImageAttribution && (
-                <figcaption>
-                  <AttributionLine attribution={mdxPost.coverImageAttribution} />
-                </figcaption>
-              )}
-            </figure>
-          )}
-          <article className="prose prose-lg prose-slate mt-12 max-w-none
-            prose-img:rounded-xl prose-img:shadow-md
-            prose-figcaption:text-xs prose-figcaption:text-slate-400">
-            <MDXRemote
-              source={mdxPost.content}
-              options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
+        <div className="min-h-screen text-slate-900">
+          <header className="border-b border-[#d8cfbd]/80 bg-[#f4efe6]/92">
+            <div className="mx-auto flex h-16 max-w-4xl items-center justify-between px-6">
+              <Link href="/blog" className="brand-wordmark-inline" aria-label="FinTara logo">
+                <span>FINTARA</span>
+              </Link>
+              <Link href="/blog" className="text-sm font-semibold text-[#214236] hover:text-[#173229]">
+                Back to articles
+              </Link>
+            </div>
+          </header>
+          <main className="mx-auto max-w-4xl px-6 py-16">
+            <PostHeader
+              category={mdxPost.category}
+              title={mdxPost.title}
+              date={mdxPost.date}
+              readTime={mdxPost.readTime}
+              excerpt={mdxPost.excerpt}
+              excerptMarkdown={mdxPost.excerptMarkdown}
+              isPlaceholder={false}
             />
-          </article>
-          <AuthorBio lang="en" />
-        </main>
-      </div>
+            {mdxPost.coverImage && (
+              <figure className="mt-10">
+                <img
+                  src={mdxPost.coverImage}
+                  alt={mdxPost.title}
+                  className="w-full rounded-2xl object-cover max-h-[480px]"
+                />
+                {mdxPost.coverImageAttribution && (
+                  <figcaption>
+                    <AttributionLine attribution={mdxPost.coverImageAttribution} />
+                  </figcaption>
+                )}
+              </figure>
+            )}
+            <article className="prose prose-lg prose-slate mt-12 max-w-none
+              prose-img:rounded-xl prose-img:shadow-md
+              prose-figcaption:text-xs prose-figcaption:text-slate-400">
+              <MDXRemote
+                source={mdxPost.content}
+                options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
+              />
+            </article>
+            <AuthorBio lang="en" />
+          </main>
+        </div>
       </>
     );
   }
@@ -179,7 +160,15 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
   if (!post) notFound();
 
   return (
-    <div className="min-h-screen text-slate-900">
+    <>
+      <ArticleJsonLd
+        description={post.excerpt}
+        image={post.ogImage}
+        publishedAt={post.date}
+        title={post.title}
+        url={`${SITE_URL}/blog/${params.slug}`}
+      />
+      <div className="min-h-screen text-slate-900">
       <header className="border-b border-[#d8cfbd]/80 bg-[#f4efe6]/92">
         <div className="mx-auto flex h-16 max-w-4xl items-center justify-between px-6">
           <Link href="/blog" className="brand-wordmark-inline" aria-label="FinTara logo">
@@ -206,6 +195,11 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               alt={post.title}
               className="w-full rounded-2xl object-cover max-h-[480px]"
             />
+            {post.coverImageAttribution && (
+              <figcaption>
+                <AttributionLine attribution={post.coverImageAttribution} />
+              </figcaption>
+            )}
           </figure>
         )}
         <article className="mt-12 space-y-6 text-lg leading-8 text-slate-700">
@@ -215,6 +209,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         </article>
         <AuthorBio lang="en" />
       </main>
-    </div>
+      </div>
+    </>
   );
 }
