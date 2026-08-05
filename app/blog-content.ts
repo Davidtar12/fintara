@@ -24,6 +24,8 @@ export const BLOG_CONTENT: Record<Language, BlogPost[]> = {
       meta: "5 min read",
       date: "Mar 18, 2026",
       readTime: "5 min read",
+      coverImage: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
+      ogImage: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
       body: [
         "ETF fee compression is one of those stories that sounds simple until you run the numbers. Yes, lower expense ratios matter. But they do not matter equally across portfolio sizes, holding periods, and product categories.",
         "The right question is not whether lower fees are good. They are. The right question is where fee competition reflects real efficiency and where it is mainly a customer-acquisition tactic that gets offset elsewhere through spreads, product structure, or behavior.",
@@ -39,6 +41,8 @@ export const BLOG_CONTENT: Record<Language, BlogPost[]> = {
       meta: "7 min read",
       date: "Mar 15, 2026",
       readTime: "7 min read",
+      coverImage: "https://images.unsplash.com/photo-1642790106117-e829e14a795f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
+      ogImage: "https://images.unsplash.com/photo-1642790106117-e829e14a795f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
       body: [
         "Interactive Brokers is often recommended as if the case were closed. It is not. IBKR is powerful, but it comes with interface friction, setup complexity, and a learning curve that many investors underestimate.",
         "The real edge is not branding. It is the stack: broad market access, strong execution, low financing costs, and a platform built for people who care about detail. Those benefits are real, but they come with a usability tax.",
@@ -54,6 +58,8 @@ export const BLOG_CONTENT: Record<Language, BlogPost[]> = {
       meta: "4 min read",
       date: "Mar 11, 2026",
       readTime: "4 min read",
+      coverImage: "https://images.unsplash.com/photo-1543286386-713bdd548da4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
+      ogImage: "https://images.unsplash.com/photo-1543286386-713bdd548da4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
       body: [
         "Most macro commentary arrives late. By the time the consensus explains what changed, the market has already repriced around the new story. That is why signal selection matters more than narrative fluency.",
         "Right now, three indicators deserve more attention than they are getting: credit stress at the margin, labor-market softness beneath headline strength, and cross-asset divergence in rate sensitivity.",
