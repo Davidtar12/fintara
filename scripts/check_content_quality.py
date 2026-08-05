@@ -7,7 +7,6 @@ PATTERNS = [
     (re.compile(r"(?i)visual context for:|contexto visual para:"), "prompt caption residue"),
     (re.compile(r"(?i)\bfor body\d+\b|\bpara body\d+\b|\bfor cover\b|\bpara la cobertura\b"), "slot caption residue"),
     (re.compile(r"\b(BBRK-A|RRTX|BBUD|DDDOG|RROST|DDXCM)\b"), "garbled tickers"),
-    (re.compile(r"(?im)^\*(?!\s*(?:Photo by|Foto de|Wikipedia contributors|\[Wikipedia)).{12,}?[—–-]\s*(?:Photo by|Foto de)"), "descriptive caption before attribution"),
 ]
 
 def main() -> int:
